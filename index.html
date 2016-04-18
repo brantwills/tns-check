@@ -2,6 +2,7 @@
 
 <head>
 
+    <title>tnsnamer</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/tns.css" rel="stylesheet"/>
 
@@ -13,28 +14,26 @@
 
         <div class="container">
 
-            <h1> <span class="text-muted">ugh</span> tnsnames </h1>
+            <h1> 
+                tnsnamer 
+                <span class="small text-muted">for tnsnames.ora</span>  
+            </h1>
 
-            <div id="drop" drop-area> 
+            <div id="drop" drop-area on-parse="ParseFile(files)"> 
                 <span class="glyphicon glyphicon-cloud-download"></span>
                 <div>drop tnsnames.ora here-ish</div>
             </div>
 
-            <div class="well well-dark">
-                <div class="row">
-                    <div class="col-md-6">
-                        <ul class="list-unstyled">
-                            <li> File: {{file.name}}</li>
-                            <li> Size: <span class="file-size"></span></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="list-unstyled">
-                            <li> Type: <span class="file-type"></span></li>
-                            <li> Date: <span class="file-date"></span></li>
-                        </ul>
-                    </div>
-                </div>
+
+            <div ng-show="file" class="well well-dark">
+                <ul class="list-unstyled">
+                    <li> File Name: {{file.name}} </li>
+                    <li> File Size: {{file.size}} KB </li>
+                </ul>
+            </div>
+
+            <div ng-show="errors" class="alert alert-warning">
+                {{errors}}
             </div>
 
         </div>
@@ -44,16 +43,13 @@
 
     <div class="container">
         
-        
+        {{file.fileString}}
 
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
     <script src="js/lib/require.js"></script>
-    <script src="js/tns-read.js"></script>
-    <script src="js/tns-parse.js"></script>
-    <script src="js/tns-init.js"></script>
     <script src="js/app/app.js"></script>
     <script src="js/app/tns-controller.js"></script>
      <script src="js/app/tns-directive.js"></script>
