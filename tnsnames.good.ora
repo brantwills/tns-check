@@ -1,0 +1,39 @@
+#--------------------------------------------------------------------
+# This tnsnames.ora file tests the parser through every code path. 
+# This is probably the worst tnsnames.ora file you will ever see in 
+# your life!
+#
+# Norman Dunbar.
+#--------------------------------------------------------------------
+
+#--------------------------------------------------------------------
+# This one is a correctly defined listener entry.
+#--------------------------------------------------------------------
+LSNR_FRED =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = tcp)(HOST = bedrock)(PORT = 1524))
+  )
+
+#--------------------------------------------------------------------
+# This one is a correctly defined listener entry with hex port quads.
+#--------------------------------------------------------------------
+LSNR_HEXFRED =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = tcp)(HOST = 0x0a.0x1.0x2.0xFa)(PORT = 1524))
+  )
+
+
+#--------------------------------------------------------------------
+# This one is a correctly defined listener entry with oct port quads.
+#--------------------------------------------------------------------
+LSNR_OCTFRED =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = tcp)(HOST = 012.01.02.027)(PORT = 1524))
+  )
+
+#--------------------------------------------------------------------
+# This one is correctly defined - with redefinitions in the IPC stuff.
+#--------------------------------------------------------------------
+LSNR_WILMA =
+  (ADDRESS = (PROTOCOL = IPC)(KEY = LISTENER)(PROTOCOL = IPC)(KEY = LSNR_WILMA))
+  

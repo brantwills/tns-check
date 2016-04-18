@@ -1,0 +1,23 @@
+.jumbotron {
+    background: #444;
+    color: #fff;
+}
+
+.jumbotron .glyphicon {
+    font-size: 5em;
+    padding: 10px 0 20px;
+}
+
+#drop {
+    text-align: center;
+    border: dashed #aaa 2px;
+    border-radius: 8px;
+    padding: 20px 0 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #555;
+}
+
+.well-dark {
+    color: #000;
+}

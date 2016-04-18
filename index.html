@@ -1,0 +1,62 @@
+<html>
+
+<head>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/tns.css" rel="stylesheet"/>
+
+</head>
+
+<body ng-app="app-tns" ng-controller="tnsController">
+
+    <div class="jumbotron">
+
+        <div class="container">
+
+            <h1> <span class="text-muted">ugh</span> tnsnames </h1>
+
+            <div id="drop" drop-area> 
+                <span class="glyphicon glyphicon-cloud-download"></span>
+                <div>drop tnsnames.ora here-ish</div>
+            </div>
+
+            <div class="well well-dark">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li> File: {{file.name}}</li>
+                            <li> Size: <span class="file-size"></span></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li> Type: <span class="file-type"></span></li>
+                            <li> Date: <span class="file-date"></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="container">
+        
+        
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="js/lib/require.js"></script>
+    <script src="js/tns-read.js"></script>
+    <script src="js/tns-parse.js"></script>
+    <script src="js/tns-init.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/tns-controller.js"></script>
+     <script src="js/app/tns-directive.js"></script>
+</body>
+
+</html>
