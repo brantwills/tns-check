@@ -125,7 +125,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
 
     /**
      * Use Antlr to parse the file String into memory
-     *
+     * 
      * @param fileString {string} - the full file string output from the ora file
      */
     function parseFileStringIntoMemory(fileString) {
@@ -150,6 +150,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             $scope.parseErrors = tns.errors;
 
             console.log(tns.entries);
+            
         } catch (e) {
             showError("Unable to parse file string into memory: " + e.message);
         }
@@ -159,7 +160,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
     /** 
      * Return a single ORA file to work with 
      * This only considers .ora files in our file array
-     * We could have multiple files and we would like to just work with a single file
      * The single file we use is the last .ora file in our files array  
      *
      * @param files {file array} - the files of interest

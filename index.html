@@ -1,14 +1,17 @@
+<!doctype html>
 <html>
 
 <head>
-
+    <meta charset="utf-8">
     <title>tnsnamer</title>
+    <meta name="description" content="TNSNames.ora Syntax and Modification Tool">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/tns.css" rel="stylesheet" />
-
 </head>
 
-<body ng-app="app-tns" ng-controller="tnsController">
+<body ng-app="app-tns" ng-controller="tnsController" ng-cloak>
 
     <div class="jumbotron">
 
@@ -19,13 +22,24 @@
                 <span class="small text-muted">for tnsnames.ora</span>  
             </h1>
 
+
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <!-- File Drop Zone-->
+            <!-- ////////////////////////////////////////////////////////////////// -->
             <div id="drop" drop-area on-parse="ParseFile(files)">
                 <span class="glyphicon glyphicon-cloud-download"></span>
                 <div>drop tnsnames.ora here-ish</div>
             </div>
 
-            <div ng-show="errors" class="alert alert-warning">
-                {{errors}}
+
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <!-- Program Errors-->
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <div ng-show="errors" class="alert alert-danger">
+                <strong>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    {{errors}}
+                </strong>
             </div>
 
         </div>
@@ -33,28 +47,68 @@
     </div>
 
 
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- Dashboard Button Area -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
     <div class="container">
 
-        <div ng-show="parseErrors" class="alert alert-warning">
-            <strong>Possible Syntax Errors:</strong>
-            <ol> 
-                <li ng-repeat="error in parseErrors"> {{error}} </li>
-            </ol>
-        </div>
+        <span class="btn btn-default" title="Reset">
+            <span class="glyphicon glyphicon-refresh"></span>
+        </span>
 
-        <div ng-show="file" class="well">
-            <ul class="list-unstyled">
-                <li> File Name: {{file.name}} </li>
-                <li> File Size: {{file.size}} KB </li>
-                <li> Modified Date: {{file.lastModified | date:'medium'}} </li>
+        <span class="btn btn-default" title="Errors">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            {{parseErrors.length}}
+        </span>
+
+        <span class="btn btn-default" title="Entries">
+            <span class="glyphicon glyphicon-list"></span>
+            {{entries.length}}
+        </span>
+
+        <span class="btn btn-default" title="Last Modified Date">
+            <span class="glyphicon glyphicon-file"></span>
+            {{file.name}}
+        </span>
+
+        <span class="btn btn-default" title="Last Modified Date">
+            <span class="glyphicon glyphicon-hdd"></span>
+            {{file.size | bytes}}
+        </span>
+
+    </div>
+
+
+    <hr/>
+
+
+
+
+    <div class="container">
+
+
+        <!-- ////////////////////////////////////////////////////////////////// -->
+        <!-- Parsing Syntax Errors-->
+        <!-- ////////////////////////////////////////////////////////////////// -->
+        <div ng-show="parseErrors.length" class="tns-syntaxErrors alert alert-warning">
+            <h4>
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Possible Syntax Errors
+            </h4>
+            <hr/>
+            <ul class="list-unstyled"> 
+                <li ng-repeat="error in parseErrors"> 
+                    Line {{error.line}} Column {{error.column}}:
+                    <i>{{error.msg}}</i>
+                </li>
             </ul>
         </div>
 
+
+
         <div ng-repeat="entry in entries">
-
-            <h4> {{entry.alias}}
-
-            </h4>
+            <h4> {{entry.alias}} </h4>
             <textarea class="form-control">
                 {{entry.rawText}}
             </textarea>
@@ -64,12 +118,58 @@
 
     </div>
 
+
+
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <!-- Tools -->
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <div class="col-xs-3">
+                    <strong>
+                        <span class="glyphicon glyphicon-heart"></span>
+                        Tools Used
+                    </strong>
+                    <ul class="list-unstyled">
+                        <li>Antlr4</li>
+                        <li>tnsnames.g4</li>
+                        <li>AngularJS</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                </div>
+
+
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <!-- Contact-->
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <div class="col-xs-3">
+                    <strong>
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        Contact
+                    </strong>
+                    <ul class="list-unstyled">
+                        <li> @brantwills
+                        <li> github
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+
     <script src="js/lib/require.js"></script>
     <script src="js/app/app.js"></script>
     <script src="js/app/tns-controller.js"></script>
     <script src="js/app/tns-directive.js"></script>
+    <script src="js/app/tns-filter.js"></script>
 
 </body>
 
