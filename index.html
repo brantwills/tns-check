@@ -3,8 +3,8 @@
 <head>
 
     <title>tnsnamer</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/tns.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/tns.css" rel="stylesheet" />
 
 </head>
 
@@ -19,17 +19,9 @@
                 <span class="small text-muted">for tnsnames.ora</span>  
             </h1>
 
-            <div id="drop" drop-area on-parse="ParseFile(files)"> 
+            <div id="drop" drop-area on-parse="ParseFile(files)">
                 <span class="glyphicon glyphicon-cloud-download"></span>
                 <div>drop tnsnames.ora here-ish</div>
-            </div>
-
-
-            <div ng-show="file" class="well well-dark">
-                <ul class="list-unstyled">
-                    <li> File Name: {{file.name}} </li>
-                    <li> File Size: {{file.size}} KB </li>
-                </ul>
             </div>
 
             <div ng-show="errors" class="alert alert-warning">
@@ -42,8 +34,26 @@
 
 
     <div class="container">
-        
-        {{file.fileString}}
+
+        <div ng-show="file" class="well">
+            <ul class="list-unstyled">
+                <li> File Name: {{file.name}} </li>
+                <li> File Size: {{file.size}} KB </li>
+                <li> Modified Date: {{file.lastModified | date:'medium'}} </li>
+            </ul>
+        </div>
+
+        <div ng-repeat="entry in entries">
+
+            <h4> {{entry.alias}}
+
+            </h4>
+            <textarea class="form-control">
+                {{entry.rawText}}
+            </textarea>
+            <hr/>
+        </div>
+
 
     </div>
 
@@ -52,7 +62,7 @@
     <script src="js/lib/require.js"></script>
     <script src="js/app/app.js"></script>
     <script src="js/app/tns-controller.js"></script>
-     <script src="js/app/tns-directive.js"></script>
+    <script src="js/app/tns-directive.js"></script>
 </body>
 
 </html>
