@@ -136,6 +136,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             var parser = new tnsnamesParser.tnsnamesParser(tokens);
             var listener = new tnsnamesListener.tnsnamesListener();
 
+            tns.errors = [];
             tns.entries = {};
             tns.parser = parser;
 
@@ -146,6 +147,8 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             setRawText(fileString);
 
             $scope.entries = tns.entries;
+            $scope.parseErrors = tns.errors;
+
             console.log(tns.entries);
         } catch (e) {
             showError("Unable to parse file string into memory: " + e.message);

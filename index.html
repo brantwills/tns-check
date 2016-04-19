@@ -35,6 +35,13 @@
 
     <div class="container">
 
+        <div ng-show="parseErrors" class="alert alert-warning">
+            <strong>Possible Syntax Errors:</strong>
+            <ol> 
+                <li ng-repeat="error in parseErrors"> {{error}} </li>
+            </ol>
+        </div>
+
         <div ng-show="file" class="well">
             <ul class="list-unstyled">
                 <li> File Name: {{file.name}} </li>
@@ -63,7 +70,7 @@
     <script src="js/app/app.js"></script>
     <script src="js/app/tns-controller.js"></script>
     <script src="js/app/tns-directive.js"></script>
-    
+
 </body>
 
 </html>
