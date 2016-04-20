@@ -25,15 +25,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
     var tnsnamesListener = require('js/lib/tnsnamesListener');
 
 
-    /**
-     * Reset the control objects and messages to an empty state
-     */
-    function resetControl() {
-        $scope.file = "";
-        $scope.errors = "";
-        $scope.entries = "";
-        $scope.$apply();
-    }
+
 
 
     /**
@@ -186,6 +178,18 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
     }
 
 
+
+    /**
+     * Reset the control objects and messages to an empty state
+     */
+    $scope.ResetControl = function() {
+        $scope.file = "";
+        $scope.errors = "";
+        $scope.entries = "";
+        $scope.parseErrors = "";
+        $scope.$apply();
+    }
+
     /**
      * The start of our parsing process
      * If there are no ora files detected we throw and error
@@ -194,7 +198,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
      */
     $scope.ParseFile = function(files) {
         try {
-            resetControl();
+            $scope.ResetControl();
             var oraFile = isolateSingleORAFile(files);
 
             // If we do not have an .ora file let them know
