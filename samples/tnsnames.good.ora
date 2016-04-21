@@ -35,5 +35,6 @@ LSNR_OCTFRED =
 # This one is correctly defined - with redefinitions in the IPC stuff.
 #--------------------------------------------------------------------
 LSNR_WILMA =
-  (ADDRESS = (PROTOCOL = IPC)(KEY = LISTENER)(PROTOCOL = IPC)(KEY = LSNR_WILMA))
-  
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = IPC)(KEY = LISTENER)(PROTOCOL = IPC)(KEY = LSNR_WILMA))
+  )

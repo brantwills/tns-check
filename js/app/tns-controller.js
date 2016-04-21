@@ -49,7 +49,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
         try {
             $scope.file = file;
             $scope.file.fileString = fileString;
-            console.log(file);
         } catch (e) {
             showError("Unable to set file metadata: " + e.message);
         }
@@ -57,58 +56,27 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
 
 
     /**
-     * Sets the end line number in the entry 
-     * todo(bwills): need to correct, this is not working correctly in all cases
-     *
-     * @param fileString {string} - the full file string output from the ora file
-     */
-    function setEndLine(fileString) {
-        try {
-            var entries = [];
-            $.each(tns.entries, function(index, entry) {
-                entries.push(entry);
-            });
-
-            for (var i = 0; i < entries.length; i++) {
-                if (i + 1 < entries.length) {
-                    entries[i].endLine = entries[i + 1].startLine;
-                } else {
-                    entries[i].endLine = fileString.split(/\r\n|\r|\n/).length;
-                }
-            }
-
-            var j = 0;
-            $.each(tns.entries, function(index, entry) {
-                tns.entries[index] = entries[j];
-                j++
-            });
-
-        } catch (e) {
-            showError("Unable to set end line:" + e.message);
-        }
-    }
-
-
-    /**
      * Associates the individual TNS entries raw text into the entry itself 
-     * todo(bwills): rename this function
-     * todo(bwills): need to correct, this is not working correctly in all cases
+     * todo(bwills): need to get tns.entry into an array not convert
      * todo(bwills): would be nice to capture all the comments too
      *
      * @param fileString {string} - the full file string output from the ora file
      */
-    function setRawText(fileString) {
+    function setTextFromFileString(fileString) {
         try {
+            var entryArray = [];
             var fileArray = fileString.split(/\r\n|\r|\n/);
             $.each(tns.entries, function(index, entry) {
-                var rawText = "";
-                for (var line = entry.startLine; line < entry.endLine; line++) {
-                    if (fileArray[line - 1][0] != '#') {
+                if(entry.startLine){
+                    var rawText = "";
+                    for (var line = entry.startLine; line <= entry.endLine; line++) {
                         rawText += fileArray[line - 1] + '\r\n';
                     }
+                    entry.rawText = rawText;
+                    entryArray.push(entry);
                 }
-                entry.rawText = rawText;
             });
+            return entryArray;
         } catch (e) {
             showError("Unable to set raw text:" + e.message);
         }
@@ -135,13 +103,8 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             var tree = parser.tnsnames();
             antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
-            setEndLine(fileString);
-            setRawText(fileString);
-
-            $scope.entries = tns.entries;
+            $scope.entries = setTextFromFileString(fileString);
             $scope.parseErrors = tns.errors;
-
-            console.log(tns.entries);
             
         } catch (e) {
             showError("Unable to parse file string into memory: " + e.message);

@@ -51,10 +51,10 @@
             <!-- File of Interest-->
             <!-- ////////////////////////////////////////////////////////////////// -->
             <div ng-show="file">
-                <h2>
-                    <span class="glyphicon glyphicon-file"></span>
+                <h3>
                     {{file.name}}
-                </h2>
+                </h3>
+                {{file.lastModifiedDate | date}} @ {{file.size | bytes}}
             </div>
 
 
@@ -72,51 +72,30 @@
     <div ng-show="file"> 
 
         <div class="container">
-            <div class="row">
 
-                <div class="col-sm-6">
+            <span class="btn btn-default" title="Reset" ng-click="ResetControl()">
+                <span class="glyphicon glyphicon-refresh"></span>
+                <span class="hidden-sm">
+                    Restart
+                </span>
+            </span>
 
-                    <span class="btn btn-default" title="Reset" ng-click="ResetControl()">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                        <span class="hidden-sm">
-                            Restart
-                        </span>
-                    </span>
+            <span class="btn btn-default" title="Errors">
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                {{parseErrors.length}}
+                <span class="hidden-sm">
+                    Errors
+                </span>
+            </span>
 
-                    <span class="btn btn-default" title="Errors">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                        {{parseErrors.length}}
-                        <span class="hidden-sm">
-                            Errors
-                        </span>
-                    </span>
+            <span class="btn btn-default" title="Entries">
+                <span class="glyphicon glyphicon-list"></span>
+                {{entries.length}}
+                <span class="hidden-sm">
+                    Entries
+                </span>
+            </span>
 
-                    <span class="btn btn-default" title="Entries">
-                        <span class="glyphicon glyphicon-list"></span>
-                        {{entries.length}}
-                        <span class="hidden-sm">
-                            Entries
-                        </span>
-                    </span>
-
-                </div>
-
-                <div class="col-sm-6" style="text-align: right;">
-
-                    <span class="btn btn-default" title="File Size">
-                        <span class="glyphicon glyphicon-hdd"></span>
-                        {{file.size | bytes}}
-                    </span>
-
-                    <span class="btn btn-default" title="Last Modified Date">
-                        <span class="glyphicon glyphicon-time"></span>
-                        {{file.lastModifiedDate | date}}
-                    </span>
-
-                </div>
-
-
-            </div>
         </div>
 
         <hr/>
@@ -184,18 +163,20 @@
         <!-- ////////////////////////////////////////////////////////////////// -->
         <!-- Parsing Syntax Errors-->
         <!-- ////////////////////////////////////////////////////////////////// -->
-        <div ng-show="parseErrors.length" class="tns-syntaxErrors alert alert-warning">
-            <h4>
-                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                Possible Syntax Errors
-            </h4>
-            <hr/>
-            <ul class="list-unstyled"> 
-                <li ng-repeat="error in parseErrors"> 
-                    Line {{error.line}} Column {{error.column}}:
-                    <i>{{error.msg}}</i>
-                </li>
-            </ul>
+        <div ng-show="parseErrors.length">
+            <div class="tns-syntaxErrors alert alert-warning">
+                <h4>
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>
+                    Possible Syntax Errors
+                </h4>
+                <hr/>
+                <ul class="list-unstyled"> 
+                    <li ng-repeat="error in parseErrors"> 
+                        Line {{error.line}} Column {{error.column}}:
+                        <i>{{error.msg}}</i>
+                    </li>
+                </ul>
+            </div>
         </div>
 
 
@@ -204,11 +185,9 @@
         <!-- Parsed Entries-->
         <!-- ////////////////////////////////////////////////////////////////// -->
         <div ng-repeat="entry in entries">
-            <h4> {{entry.alias}} </h4>
-            <textarea class="form-control">
-                {{entry.rawText}}
-            </textarea>
             <hr/>
+            <h4> {{entry.alias}} </h4>
+            <pre>{{entry.rawText}}</pre>
         </div>
 
 
@@ -224,12 +203,12 @@
                 <!-- ////////////////////////////////////////////////////////////////// -->
                 <!-- Thanks -->
                 <!-- ////////////////////////////////////////////////////////////////// -->
-                <div class="col-xs-4">
+                <div class="col-sm-4">
                     <h5>
                         <span class="fa fa-hand-spock-o"></span>
                         Thanks for checking all this out!
                     </h5>
-                    <i>
+                    <i class="hidden-xs">
                         Look, if you are here and this is valuable to you awesome!
                         You should feel proud to be in a very select group of well.. 
                         networky.. oracle-like.. people?.. it is a good thing !
@@ -241,7 +220,7 @@
                 <!-- ////////////////////////////////////////////////////////////////// -->
                 <!-- Tools -->
                 <!-- ////////////////////////////////////////////////////////////////// -->
-                <div class="col-xs-3 col-xs-offset-2 hidden-xs">
+                <div class="col-sm-3 col-sm-offset-2 hidden-xs">
                     <h5>
                         <span class="glyphicon glyphicon-heart"></span>
                         Tools Used

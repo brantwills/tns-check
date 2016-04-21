@@ -29,15 +29,24 @@ function baseListener(ctx){
     if(ctx.children){
 
         var value = "";
-        var startLine = 0;
 
         $.each(ctx.children, function(index, item){
             if(item.symbol){
-                startLine = item.symbol.line;
                 value += item.symbol.text;
             }
+
+            // We trap the endlines for completed tnsnames
+            if(rule == 'tnsnames' && item.start && item.stop){
+                var tnsnamesAlias = item.start.text;
+                if(tns.entries[tnsnamesAlias]){
+                    tns.entries[tnsnamesAlias].endLine = item.stop.line;
+                    tns.entries[tnsnamesAlias].startLine = item.start.line;
+                }
+            }
+
         });
 
+        // todo(bwills): wondering if this could be done with rule index 0?
         if(value.length){
 
             if(rule == 'alias' && alias != value){
@@ -47,11 +56,6 @@ function baseListener(ctx){
             tns.entries[alias] = tns.entries[alias] || {};
             tns.entries[alias][rule] = tns.entries[alias][rule] || [];
             tns.entries[alias][rule].push(value);
-
-            if(rule == 'alias'){
-                tns.entries[alias].startLine = startLine; 
-            }
-
         }
     }
 }
