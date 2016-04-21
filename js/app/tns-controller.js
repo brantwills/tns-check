@@ -150,7 +150,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
         $scope.errors = "";
         $scope.entries = "";
         $scope.parseErrors = "";
-        $scope.$apply();
     }
 
     /**

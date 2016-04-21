@@ -1,3 +1,8 @@
+
+/* /////////////////////////////////////////////////////////// */
+/* Elements  */
+/* /////////////////////////////////////////////////////////// */
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
@@ -12,29 +17,75 @@ body {
     margin-bottom: 250px;
 }
 
-.jumbotron {
-    background: #444;
-    color: #fff;
+
+/* /////////////////////////////////////////////////////////// */
+/* Helpers */
+/* /////////////////////////////////////////////////////////// */
+
+
+.glyphicon {
+    padding-right: 3px;
 }
 
-.jumbotron .glyphicon-cloud-download {
-    font-size: 5em;
-    padding: 10px 0 20px;
+.glyphicon-pd-left {
+    padding-left: 20px;
 }
 
 .well-dark {
     color: #000;
 }
 
+.tns-syntaxErrors li {
+    padding: 0 0 5px;
+}
+
+
+
+
+
+/* /////////////////////////////////////////////////////////// */
+/* Header */
+/* /////////////////////////////////////////////////////////// */
+.jumbotron {
+    background: #444;
+    color: #fff;
+}
+
+.jumbotron .glyphicon-lg {
+    font-size: 5em;
+    padding: 10px 0 20px;
+    display: block;
+}
+
+
+
+
 #drop {
-    text-align: center;
     border: dashed #aaa 2px;
     border-radius: 8px;
-    padding: 20px 0 30px;
-    margin-top: 20px;
-    margin-bottom: 20px;
     background: #555;
+    margin-top: 20px;
+    margin-bottom: 40px;
 }
+
+#drop .zone-lg {
+    text-align: center;
+    padding: 20px 0 30px;
+}
+
+#drop .zone-sm {
+    padding: 20px;
+}
+
+
+
+
+
+
+
+/* /////////////////////////////////////////////////////////// */
+/* Footer */
+/* /////////////////////////////////////////////////////////// */
 
 .footer {
     /* Set the fixed height of the footer here */
@@ -61,6 +112,3 @@ body {
     color: #bbb;
 }
 
-.tns-syntaxErrors li {
-    padding: 0 0 5px;
-}

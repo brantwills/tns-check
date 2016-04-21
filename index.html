@@ -31,8 +31,17 @@
             <!-- File Drop Zone-->
             <!-- ////////////////////////////////////////////////////////////////// -->
             <div id="drop" drop-area on-parse="ParseFile(files)">
-                <span class="glyphicon glyphicon-cloud-download"></span>
-                <div>drop tnsnames.ora here-ish</div>
+
+                <div ng-hide="file" class="zone-lg">
+                    <span class="glyphicon glyphicon-lg glyphicon-cloud-download"></span>
+                    drop tnsnames.ora here-ish
+                </div>
+
+                <div ng-show="file" class="zone-sm">
+                    <span class="glyphicon glyphicon-cloud-download"></span>
+                    drop another file as needed
+                </div>
+
             </div>
 
 
@@ -47,19 +56,36 @@
             </div>
 
 
-            <!-- ////////////////////////////////////////////////////////////////// -->
-            <!-- File of Interest-->
-            <!-- ////////////////////////////////////////////////////////////////// -->
-            <div ng-show="file">
-                <h3>
-                    {{file.name}}
-                </h3>
-                {{file.lastModifiedDate | date}} @ {{file.size | bytes}}
-            </div>
+
 
 
         </div>
 
+    </div>
+
+
+
+
+
+
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- File of Interest-->
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <div ng-show="file" style="background: #62629e; padding: 20px 0 30px; margin: -80px 0 20px; color: #fff;">
+        <div class="container">
+            <h3>
+                {{file.name}}
+            </h3>
+            <div> 
+
+                <span class="glyphicon glyphicon-calendar"></span>
+                <span title="Last Modified Date">{{file.lastModifiedDate | date}}</span>
+
+                <span class="glyphicon glyphicon-hdd glyphicon-pd-left"></span>
+                <span title="File Size">{{file.size | bytes}}</span>
+            </div>
+        </div>
     </div>
 
 
@@ -69,39 +95,26 @@
     <!-- ////////////////////////////////////////////////////////////////// -->
     <!-- Dashboard Button Area -->
     <!-- ////////////////////////////////////////////////////////////////// -->
-    <div ng-show="file"> 
+    <div ng-show="file" class="container"> 
 
-        <div class="container">
+        <span class="btn btn-default" title="Reset" ng-click="ResetControl()">
+            <span class="glyphicon glyphicon-refresh"></span>
+            Restart
+        </span>
 
-            <span class="btn btn-default" title="Reset" ng-click="ResetControl()">
-                <span class="glyphicon glyphicon-refresh"></span>
-                <span class="hidden-sm">
-                    Restart
-                </span>
-            </span>
+        <span class="btn btn-default" title="Errors">
+            <span class="glyphicon glyphicon-exclamation-sign"></span>
+            {{parseErrors.length}}
+            Errors
+        </span>
 
-            <span class="btn btn-default" title="Errors">
-                <span class="glyphicon glyphicon-exclamation-sign"></span>
-                {{parseErrors.length}}
-                <span class="hidden-sm">
-                    Errors
-                </span>
-            </span>
-
-            <span class="btn btn-default" title="Entries">
-                <span class="glyphicon glyphicon-list"></span>
-                {{entries.length}}
-                <span class="hidden-sm">
-                    Entries
-                </span>
-            </span>
-
-        </div>
-
-        <hr/>
+        <span class="btn btn-default" title="Entries">
+            <span class="glyphicon glyphicon-list"></span>
+            {{entries.length}}
+            Entries
+        </span>
 
     </div>
-
 
 
 
