@@ -152,6 +152,14 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
         $scope.parseErrors = "";
     }
 
+
+    /**
+     * Clears the TNS Entry search input
+     */
+    $scope.ClearSearch = function (){
+        $scope.search = "";
+    }
+
     /**
      * The start of our parsing process
      * If there are no ora files detected we throw and error

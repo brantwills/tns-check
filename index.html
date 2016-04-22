@@ -17,11 +17,12 @@
 
 
 
-    <div class="jumbotron">
+
+    <div class="jumbotron" ng-class="file ? 'jumbo-sm' : 'jumbo-lg'">
 
         <div class="container">
 
-            <h1> 
+            <h1 ng-hide="file"> 
                 tnsnamer 
                 <span class="small text-muted">for tnsnames.ora</span>  
             </h1>
@@ -39,7 +40,7 @@
 
                 <div ng-show="file" class="zone-sm">
                     <span class="glyphicon glyphicon-cloud-download"></span>
-                    drop another file as needed
+                    tnsnamer: drop another file as needed
                 </div>
 
             </div>
@@ -55,10 +56,6 @@
                 </strong>
             </div>
 
-
-
-
-
         </div>
 
     </div>
@@ -72,7 +69,7 @@
     <!-- ////////////////////////////////////////////////////////////////// -->
     <!-- File of Interest-->
     <!-- ////////////////////////////////////////////////////////////////// -->
-    <div ng-show="file" style="background: #62629e; padding: 20px 0 30px; margin: -80px 0 20px; color: #fff;">
+    <div ng-show="file" class="wrapper-file">
         <div class="container">
             <h3>
                 {{file.name}}
@@ -84,36 +81,15 @@
 
                 <span class="glyphicon glyphicon-hdd glyphicon-pd-left"></span>
                 <span title="File Size">{{file.size | bytes}}</span>
+
+                <span class="glyphicon glyphicon-exclamation-sign glyphicon-pd-left"></span>
+                <span title="Parse Errors">{{parseErrors.length}} Errors</span>
+
+                <span class="glyphicon glyphicon-list glyphicon-pd-left"></span>
+                <span title="TNS Entries">{{entries.length}} Entries</span>
+
             </div>
         </div>
-    </div>
-
-
-
-
-
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <!-- Dashboard Button Area -->
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <div ng-show="file" class="container"> 
-
-        <span class="btn btn-default" title="Reset" ng-click="ResetControl()">
-            <span class="glyphicon glyphicon-refresh"></span>
-            Restart
-        </span>
-
-        <span class="btn btn-default" title="Errors">
-            <span class="glyphicon glyphicon-exclamation-sign"></span>
-            {{parseErrors.length}}
-            Errors
-        </span>
-
-        <span class="btn btn-default" title="Entries">
-            <span class="glyphicon glyphicon-list"></span>
-            {{entries.length}}
-            Entries
-        </span>
-
     </div>
 
 
@@ -125,50 +101,15 @@
         <!-- ////////////////////////////////////////////////////////////////// -->
         <!-- Parsed Entries-->
         <!-- ////////////////////////////////////////////////////////////////// -->
-        <div ng-hide="file">
+        <div class="wrapper-about" ng-hide="file">
 
-            <div class="row">
+            <h4>What do I do?</h4>
 
-                <div class="col-sm-6">
-
-                    <h4>What do I do?</h4>
-                    <hr/>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu nisi sem. Nulla ante dolor, ultricies pharetra gravida et, placerat et purus. Aenean condimentum tristique arcu, ac vehicula libero dictum ac. Cras vel magna a nisl varius accumsan. Vestibulum nibh quam, posuere in enim ut, feugiat commodo arcu. Donec tempus tortor sit amet enim ornare ultrices. Aenean nec hendrerit nulla. Cras vitae mollis nisi, in vulputate sapien. Praesent dapibus elementum luctus. Vivamus dapibus quis diam non vehicula. Nulla lectus dui, suscipit sit amet turpis in, pellentesque blandit mi.
-                    </p>
-
-                </div>
-                <div class="col-sm-6">
-
-                    <h4>Why should I use this?</h4>
-                    <hr/>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu nisi sem. Nulla ante dolor, ultricies pharetra gravida et, placerat et purus. Aenean condimentum tristique arcu, ac vehicula libero dictum ac. Cras vel magna a nisl varius accumsan. Vestibulum nibh quam, posuere in enim ut, feugiat commodo arcu. Donec tempus tortor sit amet enim ornare ultrices. Aenean nec hendrerit nulla. Cras vitae mollis nisi, in vulputate sapien. Praesent dapibus elementum luctus. Vivamus dapibus quis diam non vehicula. Nulla lectus dui, suscipit sit amet turpis in, pellentesque blandit mi.
-                    </p>
-
-                </div>
-
-            </div>
-            <br/>
-            <br/>
+            <h4>Why should I use this?</h4>
 
             <h4>How does it work?</h4>
-            <hr/>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu nisi sem. Nulla ante dolor, ultricies pharetra gravida et, placerat et purus. Aenean condimentum tristique arcu, ac vehicula libero dictum ac. Cras vel magna a nisl varius accumsan. Vestibulum nibh quam, posuere in enim ut, feugiat commodo arcu. Donec tempus tortor sit amet enim ornare ultrices. Aenean nec hendrerit nulla. Cras vitae mollis nisi, in vulputate sapien. Praesent dapibus elementum luctus. Vivamus dapibus quis diam non vehicula. Nulla lectus dui, suscipit sit amet turpis in, pellentesque blandit mi.
-            </p>
-            <br/>
-            <br/>
-
 
             <h4>Why did you create this?</h4>
-            <hr/>
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eu nisi sem. Nulla ante dolor, ultricies pharetra gravida et, placerat et purus. Aenean condimentum tristique arcu, ac vehicula libero dictum ac. Cras vel magna a nisl varius accumsan. Vestibulum nibh quam, posuere in enim ut, feugiat commodo arcu. Donec tempus tortor sit amet enim ornare ultrices. Aenean nec hendrerit nulla. Cras vitae mollis nisi, in vulputate sapien. Praesent dapibus elementum luctus. Vivamus dapibus quis diam non vehicula. Nulla lectus dui, suscipit sit amet turpis in, pellentesque blandit mi.
-            </p>
-            <br/>
-            <br/>
-
 
         </div>
 
@@ -176,20 +117,18 @@
         <!-- ////////////////////////////////////////////////////////////////// -->
         <!-- Parsing Syntax Errors-->
         <!-- ////////////////////////////////////////////////////////////////// -->
-        <div ng-show="parseErrors.length">
-            <div class="tns-syntaxErrors alert alert-warning">
-                <h4>
-                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    Possible Syntax Errors
-                </h4>
-                <hr/>
-                <ul class="list-unstyled"> 
-                    <li ng-repeat="error in parseErrors"> 
-                        Line {{error.line}} Column {{error.column}}:
-                        <i>{{error.msg}}</i>
-                    </li>
-                </ul>
-            </div>
+        <div class="wrapper-parseErrors" ng-show="parseErrors.length">
+            <h4>
+                <span class="glyphicon glyphicon-exclamation-sign"></span>
+                Possible Syntax Errors
+            </h4>
+            <hr/>
+            <ul class="list-unstyled"> 
+                <li ng-repeat="error in parseErrors"> 
+                    Line {{error.line}} Column {{error.column}}:
+                    <i>{{error.msg}}</i>
+                </li>
+            </ul>
         </div>
 
 
@@ -197,12 +136,38 @@
         <!-- ////////////////////////////////////////////////////////////////// -->
         <!-- Parsed Entries-->
         <!-- ////////////////////////////////////////////////////////////////// -->
-        <div ng-repeat="entry in entries">
+        <div class="wrapper-entries" ng-show="entries">
+            <h4>
+                <span class="glyphicon glyphicon-list"></span>
+                TNS Entries
+            </h4>
             <hr/>
-            <h4> {{entry.alias}} </h4>
-            <pre>{{entry.rawText}}</pre>
-        </div>
 
+            <div class="input-group">
+                <span class="input-group-addon" id="basic-addon1">
+                    <span class="glyphicon glyphicon-search"></span>
+                </span>
+              <input type="text" class="form-control" placeholder="Search for..." ng-model="search">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" ng-click="ClearSearch();">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+              </span>
+            </div>
+
+
+            <div ng-repeat="entry in entries | filter: search">
+
+                <h5> {{entry.alias}} </h5>
+                <hr/>
+                <div ng-repeat="(key, value) in entry" ng-hide="!!key.match('_|address|startLine|endLine|rawText|tnsnames')">
+                    {{key}}: {{value}}
+                </div>
+                <pre>{{entry.rawText}}</pre> 
+
+            </div>
+
+        </div>
 
     </div>
 
@@ -210,7 +175,30 @@
 
     <div class="footer">
         <div class="container">
-            <div class="row">
+
+
+                <center>
+                <h1>
+                        <span class="fa fa-hand-spock-o"></span>
+                        </h1>
+
+                        Thanks for checking all this out!
+                        <div>
+                            <a href="https://twitter.com/brantwills" title="@brantwills" target="_blank">
+                                @brantwills
+                            </a>
+                            |
+                            <a href="https://github.com/brantwills/tnsnamer" title="Github" target="_blank">
+                                github source
+                            </a>
+
+                        </div>
+
+                </center>
+
+
+
+            <div style="display:none" class="row">
 
 
                 <!-- ////////////////////////////////////////////////////////////////// -->

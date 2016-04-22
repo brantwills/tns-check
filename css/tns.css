@@ -14,7 +14,7 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    margin-bottom: 250px;
+    margin-bottom: 200px;
 }
 
 
@@ -35,10 +35,6 @@ body {
     color: #000;
 }
 
-.tns-syntaxErrors li {
-    padding: 0 0 5px;
-}
-
 
 
 
@@ -46,6 +42,7 @@ body {
 /* /////////////////////////////////////////////////////////// */
 /* Header */
 /* /////////////////////////////////////////////////////////// */
+
 .jumbotron {
     background: #444;
     color: #fff;
@@ -58,6 +55,10 @@ body {
 }
 
 
+.jumbo-sm {
+    padding: 20px 0 10px;
+    margin: 0;
+}
 
 
 #drop {
@@ -80,7 +81,35 @@ body {
 
 
 
+/* /////////////////////////////////////////////////////////// */
+/* Wrappers */
+/* /////////////////////////////////////////////////////////// */
 
+
+.wrapper-file,
+.wrapper-about,
+.wrapper-entries,
+.wrapper-parseErrors {
+    margin-bottom: 40px;
+}
+
+.wrapper-file {
+    color: #fff;
+    background: #62629e; 
+    padding: 10px 0 30px;
+}
+
+.wrapper-parseErrors li {
+    padding: 0 0 5px;
+}
+
+.wrapper-entries .input-group {
+    margin-bottom: 40px;
+}
+
+.wrapper-entries pre{
+    margin: 10px 0 60px;
+}
 
 
 /* /////////////////////////////////////////////////////////// */
@@ -89,13 +118,13 @@ body {
 
 .footer {
     /* Set the fixed height of the footer here */
-    height: 250px;
+    height: 200px;
     position: absolute;
     bottom: 0;
     width: 100%;
 
     padding: 40px 0;
-    background: #444;
+    background: #3B9251;
     color: #fff;
 }
 
@@ -109,6 +138,6 @@ body {
 }
 
 .footer a {
-    color: #bbb;
+    color: #8CBB92;
 }
 
