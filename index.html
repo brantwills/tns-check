@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
+<!-- ////////////////////////////////////////////////////////////////// 
 
+@brantwills | github.com/brantwills
+
+////////////////////////////////////////////////////////////////// -->
 <head>
     <meta charset="utf-8">
     <title>tnsnamer</title>
@@ -99,7 +103,7 @@
     <div class="container">
 
         <!-- ////////////////////////////////////////////////////////////////// -->
-        <!-- Parsed Entries-->
+        <!-- About -->
         <!-- ////////////////////////////////////////////////////////////////// -->
         <div class="wrapper-about" ng-hide="file">
 
@@ -114,17 +118,22 @@
         </div>
 
 
+
+
+
+
         <!-- ////////////////////////////////////////////////////////////////// -->
         <!-- Parsing Syntax Errors-->
         <!-- ////////////////////////////////////////////////////////////////// -->
         <div class="wrapper-parseErrors" ng-show="parseErrors.length">
             <h4>
                 <span class="glyphicon glyphicon-exclamation-sign"></span>
+                {{parseErrors.length}} 
                 Possible Syntax Errors
             </h4>
             <hr/>
             <ul class="list-unstyled"> 
-                <li ng-repeat="error in parseErrors"> 
+                <li ng-repeat="error in parseErrors" class="text-danger"> 
                     Line {{error.line}} Column {{error.column}}:
                     <i>{{error.msg}}</i>
                 </li>
@@ -134,38 +143,85 @@
 
 
         <!-- ////////////////////////////////////////////////////////////////// -->
-        <!-- Parsed Entries-->
+        <!-- Search and Filter -->
         <!-- ////////////////////////////////////////////////////////////////// -->
         <div class="wrapper-entries" ng-show="entries">
-            <h4>
-                <span class="glyphicon glyphicon-list"></span>
-                TNS Entries
-            </h4>
-            <hr/>
+            <div class="well" ng-show="entries.length">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search for..." ng-model="search">
+                            <span class="input-group-addon" ng-click="ClearSearch();">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                            </span>
+                            <select class="form-control" ng-model="sort">
+                                <option value="">Sort By...</option>
+                                <option ng-repeat="key in entryKeys">
+                                    {{key}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">
-                    <span class="glyphicon glyphicon-search"></span>
-                </span>
-              <input type="text" class="form-control" placeholder="Search for..." ng-model="search">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ng-click="ClearSearch();">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-              </span>
+
+
+        <div class="wrapper-entries" ng-show="entries">
+
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <!-- No Entries Length == 0-->
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <div ng-hide="entries.length">
+                Unable to collect TNS entries or there were no TNS entries present
             </div>
 
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <!-- Parsed Entries-->
+            <!-- ////////////////////////////////////////////////////////////////// -->
+            <table class="table table-striped">
+                <tr ng-repeat="entry in entries | filter: search | orderBy: sort">
+                    <td>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <ul class="list-unstyled">
+                                    <li> 
+                                        <h4>{{entry.alias.join(', ')}}</h4> 
+                                    </li>
+                                     <li ng-repeat="(key, value) in entry">
+                                        {{key}}: {{value.join(', ')}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-8">
+                                <pre>{{entry.rawText}}</pre> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-            <div ng-repeat="entry in entries | filter: search">
 
+<!--
+            <div ng-repeat="entry in entries | filter: search | orderBy: sort">
                 <h5> {{entry.alias}} </h5>
-                <hr/>
-                <div ng-repeat="(key, value) in entry" ng-hide="!!key.match('_|address|startLine|endLine|rawText|tnsnames')">
+                <div ng-repeat="(key, value) in entry">
                     {{key}}: {{value}}
                 </div>
                 <pre>{{entry.rawText}}</pre> 
-
             </div>
+-->
 
         </div>
 
@@ -173,113 +229,38 @@
 
 
 
+
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- Footer -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
     <div class="footer">
         <div class="container">
 
+            <h1>
+            <span class="fa fa-hand-spock-o"></span>
+            </h1>
 
-                <center>
-                <h1>
-                        <span class="fa fa-hand-spock-o"></span>
-                        </h1>
-
-                        Thanks for checking all this out!
-                        <div>
-                            <a href="https://twitter.com/brantwills" title="@brantwills" target="_blank">
-                                @brantwills
-                            </a>
-                            |
-                            <a href="https://github.com/brantwills/tnsnamer" title="Github" target="_blank">
-                                github source
-                            </a>
-
-                        </div>
-
-                </center>
-
-
-
-            <div style="display:none" class="row">
-
-
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <!-- Thanks -->
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <div class="col-sm-4">
-                    <h5>
-                        <span class="fa fa-hand-spock-o"></span>
-                        Thanks for checking all this out!
-                    </h5>
-                    <i class="hidden-xs">
-                        Look, if you are here and this is valuable to you awesome!
-                        You should feel proud to be in a very select group of well.. 
-                        networky.. oracle-like.. people?.. it is a good thing !
-                    </i>
-                </div>
-
-
-
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <!-- Tools -->
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <div class="col-sm-3 col-sm-offset-2 hidden-xs">
-                    <h5>
-                        <span class="glyphicon glyphicon-heart"></span>
-                        Tools Used
-                    </h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="http://www.antlr.org/" title="Antlr4" target="_blank">
-                                Antlr4
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4" title="tnsname.g4" target="_blank">
-                                tnsnames.g4
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://angularjs.org/" title="AngularJS" target="_blank">
-                                AngularJS
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://getbootstrap.com/" title="Bootstrap" target="_blank">
-                                Bootstrap
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <!-- Contact-->
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <div class="col-xs-3 hidden-xs">
-                    <h5>
-                        <span class="glyphicon glyphicon-envelope"></span>
-                        Contact
-                    </h5>
-                    <ul class="list-unstyled">
-                        <li> 
-                            <a href="https://twitter.com/brantwills" title="@brantwills" target="_blank">
-                                @brantwills
-                            </a>
-                        </li>
-                        <li> 
-                            <a href="https://github.com/brantwills/tnsnamer" title="Github" target="_blank">
-                                github source
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-
+            Thanks for checking all this out!
+            <div>
+                <a href="https://twitter.com/brantwills" title="@brantwills" target="_blank">
+                    @brantwills
+                </a>
+                |
+                <a href="https://github.com/brantwills/tnsnamer" title="Github" target="_blank">
+                    github source
+                </a>
             </div>
         </div>
     </div>
 
 
 
+
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- Script -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
 

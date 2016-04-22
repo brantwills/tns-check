@@ -23,7 +23,7 @@ body {
 /* /////////////////////////////////////////////////////////// */
 
 
-.glyphicon {
+.glyphicon, .fa {
     padding-right: 3px;
 }
 
@@ -31,9 +31,15 @@ body {
     padding-left: 20px;
 }
 
+
+.well {
+    border-radius: 0;
+}
+
 .well-dark {
     color: #000;
 }
+
 
 
 
@@ -63,7 +69,6 @@ body {
 
 #drop {
     border: dashed #aaa 2px;
-    border-radius: 8px;
     background: #555;
     margin-top: 20px;
     margin-bottom: 40px;
@@ -96,20 +101,26 @@ body {
 .wrapper-file {
     color: #fff;
     background: #62629e; 
-    padding: 10px 0 30px;
+    padding: 20px 0 40px;
 }
 
 .wrapper-parseErrors li {
     padding: 0 0 5px;
 }
 
-.wrapper-entries .input-group {
-    margin-bottom: 40px;
+.wrapper-entries pre{
+    overflow: auto;
+    color: #eff0ff;
+    background: #545454;
+    border: none;
+    border-radius: 0;
+    padding: 20px;
 }
 
-.wrapper-entries pre{
-    margin: 10px 0 60px;
+.wrapper-entries .table td {
+    padding: 20px;
 }
+
 
 
 /* /////////////////////////////////////////////////////////// */
@@ -123,8 +134,9 @@ body {
     bottom: 0;
     width: 100%;
 
+    text-align: center;
     padding: 40px 0;
-    background: #3B9251;
+    background: #3e5d46;
     color: #fff;
 }
 

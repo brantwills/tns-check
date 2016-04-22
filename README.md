@@ -1,2 +1,6 @@
 # tnsnamer
-dont judge me yet, still very much in development, like .. that development when you are watching tv and just trying to see if ideas will work out without thinking about comments or architecture....
+
+Oracle tnsnames.ora exploration web tool
+
+In Development Sprints 
+
