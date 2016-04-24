@@ -82,7 +82,7 @@ ConsoleErrorListener.prototype.syntaxError = function(recognizer, offendingSymbo
 		msg: msg,
 		e: e
 	})
-    console.error("line " + line + ":" + column + " " + msg);
+    console.warn("line " + line + ":" + column + " " + msg);
 };
 
 function ProxyErrorListener(delegates) {

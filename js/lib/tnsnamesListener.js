@@ -30,13 +30,14 @@ function baseListener(ctx){
 
         var value = "";
 
-        $.each(ctx.children, function(index, item){
+        angular.forEach(ctx.children, function(item, index){
             if(item.symbol){
                 value += item.symbol.text;
             }
 
             // We trap the endlines for completed tnsnames
             if(rule == 'tnsnames' && item.start && item.stop){
+
                 var tnsnamesAlias = item.start.text;
                 if(tns.entries[tnsnamesAlias]){
                     tns.entries[tnsnamesAlias].endLine = item.stop.line;
@@ -66,10 +67,15 @@ function baseListener(ctx){
 
 // Enter a parse tree produced by tnsnamesParser#tnsnames.
 tnsnamesListener.prototype.enterTnsnames = function(ctx) {
+
+    console.log('enter:', ctx);
+    console.log('--------------------');
 };
 
 // Exit a parse tree produced by tnsnamesParser#tnsnames.
 tnsnamesListener.prototype.exitTnsnames = function(ctx) {
+    console.log('exit:', ctx);
+    console.log('--------------------');
     baseListener(ctx); 
 };
 

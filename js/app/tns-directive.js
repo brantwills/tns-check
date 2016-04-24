@@ -19,7 +19,7 @@ angular.module('app-tns').directive('dropArea', function() {
                 e.preventDefault();
 
                 // todo(bwills): remove the originalEvent when jQuery goes out
-                e.originalEvent.dataTransfer.dropEffect = 'copy';
+                e.dataTransfer.dropEffect = 'copy';
             });
 
 
@@ -35,7 +35,7 @@ angular.module('app-tns').directive('dropArea', function() {
 
                 // todo(bwills): remove the originalEvent when jQuery goes out
                 scope.onParse({
-                    files: e.originalEvent.dataTransfer.files
+                    files: e.dataTransfer.files
                 });
             });
 

@@ -60,6 +60,9 @@ body {
     display: block;
 }
 
+.jumbo-lg {
+    padding: 20px 0 10px;
+}
 
 .jumbo-sm {
     padding: 20px 0 10px;
@@ -93,19 +96,56 @@ body {
 
 .wrapper-file,
 .wrapper-about,
+.wrapper-filter,
 .wrapper-entries,
 .wrapper-parseErrors {
+    margin-bottom: 20px;
+}
+
+
+.wrapper-about {
+    font-size: 16px;
+}
+
+.wrapper-about h4 {
+    color: #62629e;
+}
+
+.wrapper-about p {
+    line-height: 26px;
+}
+
+.wrapper-about li {
+    padding: 3px;
+}
+
+
+
+.wrapper-filter{
     margin-bottom: 40px;
 }
+
+
 
 .wrapper-file {
     color: #fff;
     background: #62629e; 
-    padding: 20px 0 40px;
+    padding: 0 0 20px;
 }
+
 
 .wrapper-parseErrors li {
     padding: 0 0 5px;
+}
+
+
+
+.wrapper-entries .entryRow {
+    padding: 20px;
+    background: #f5f5f5;
+    border: 1px #ddd;
+    border-style: solid none;
+    margin-bottom: 40px;
 }
 
 .wrapper-entries pre{
@@ -115,11 +155,10 @@ body {
     border: none;
     border-radius: 0;
     padding: 20px;
+    margin: 20px 0 0;
 }
 
-.wrapper-entries .table td {
-    padding: 20px;
-}
+
 
 
 

@@ -24,6 +24,13 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
     var tnsnamesListener = require('js/lib/tnsnamesListener');
 
 
+    /**
+     * The Entry Object Keys we want to hide from users
+     */
+    var ignoredEntryKeys = 'startLine|endLine|tnsnames';
+
+
+
 
 
 
@@ -92,7 +99,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
      * We need this for setting any filtering drop down lists 
      * Sorts the array
      * todo(bwills): this should be limited to only what we want to show not all antlr4 stuff
-     * todo(biwlls): way to many keys are in here so fix that
      *
      * @param entries {Object} - the array of tns entries to examine
      */
@@ -102,8 +108,8 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             var keys = [];
             angular.forEach(entries, function(entry, index){
                 for (var key in entry) {
-                  if (entry.hasOwnProperty(key))  {
-                    if(keys.indexOf(key) == -1){
+                  if (entry.hasOwnProperty(key) && keys.indexOf(key) == -1){
+                    if(!key.match(ignoredEntryKeys)){
                         keys.push(key);
                     }
                   }
@@ -112,41 +118,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             return keys.sort();
         } catch (e) {
             showError("Unable to get keys from entries:" + e.message);
-        }
-    }
-
-
-    /**
-     * Use Antlr to parse the file String into memory
-     * todo(bwills): need to get tns.entry into an array not convert
-     * 
-     * @param fileString {string} - the full file string output from the ora file
-     */
-    function parseFileStringIntoMemory(fileString) {
-        try {
-
-            // Create Antlr4 items
-            var chars = new antlr4.InputStream(fileString);
-            var lexer = new tnsnamesLexer.tnsnamesLexer(chars);
-            var tokens = new antlr4.CommonTokenStream(lexer);
-            var parser = new tnsnamesParser.tnsnamesParser(tokens);
-            var listener = new tnsnamesListener.tnsnamesListener();
-
-            // Create global TNS items
-            tns.errors = [];
-            tns.entries = {};
-            tns.parser = parser;
-
-            // Parse and add to scope
-            var tree = parser.tnsnames();
-            antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
-
-            $scope.parseErrors = tns.errors;
-            $scope.entryKeys = getAllKeysFromEntries(tns.entries);
-            $scope.entries = setTextFromFileString(tns.entries, fileString);
-            
-        } catch (e) {
-            showError("Unable to parse file string into memory: " + e.message);
         }
     }
 
@@ -178,6 +149,102 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
             showError("Unable to isolate ora file: " + e.message);
         }
     }
+
+
+    /**
+     * We would like to associate the alias to whatever error we show the user 
+     * We leverage the line numbers to know which alias the error falls under
+     *    
+     * @param entries {Object} - the array of tns entries to examine
+     * @param errors {Object} - the array of errors to examine
+     */
+    function associateAliasToErrors(entries, errors){
+        try{
+            angular.forEach(errors, function(error, indexError){
+                var alias;
+                angular.forEach(entries, function(entry, indexEntry){
+                    if((error.line >= entry.startLine && error.line <= entry.endLine)){
+                        alias = entry.alias;
+                        return;
+                    }
+                });
+                error.alias = alias || 'Unknown';
+            });
+
+            console.log(errors);
+        } catch (e) {
+            showError("Unable to associate errors to alias: " + e.message);
+        }
+    }
+
+
+    /**
+     * Convert array values into joined strings 
+     *
+     * @param entries {Object} - the array of tns entries to examine
+     */
+    function formatEntriesForDisplay(entries){
+        try{
+            angular.forEach(entries, function(entry, index){
+                for (var key in entry) {
+                    if (entry.hasOwnProperty(key) && angular.isArray(entry[key])){ 
+                        entry[key] = entry[key].join(', ');
+                    }
+                }
+            });
+        } catch (e) {
+            showError("Unable to format entries for display: " + e.message);
+        }
+    }
+
+
+    /**
+     * Use Antlr to parse the file String into memory
+     * todo(bwills): need to get tns.entry into an array not convert
+     * todo(bwills): there are so many loops on entries.. may just stub functions with entry param
+     * 
+     * @param fileString {string} - the full file string output from the ora file
+     */
+    function parseFileStringIntoMemory(fileString) {
+        try {
+
+            // Create Antlr4 items
+            var chars = new antlr4.InputStream(fileString);
+            var lexer = new tnsnamesLexer.tnsnamesLexer(chars);
+            var tokens = new antlr4.CommonTokenStream(lexer);
+            var parser = new tnsnamesParser.tnsnamesParser(tokens);
+            var listener = new tnsnamesListener.tnsnamesListener();
+
+            // Create global TNS items
+            tns.errors = [];
+            tns.entries = {};
+            tns.parser = parser;
+
+            // Parse the tree 
+            var tree = parser.tnsnames();
+            antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
+
+            // If we have errors associate the correct alias 
+            if(tns.errors.length){
+                associateAliasToErrors(tns.entries, tns.errors);
+            }
+
+            // Adjust formatting for users
+            formatEntriesForDisplay(tns.entries);
+
+            // Assign the scope values
+            $scope.parseErrors = tns.errors;
+            $scope.entryKeys = getAllKeysFromEntries(tns.entries);
+            $scope.entries = setTextFromFileString(tns.entries, fileString);
+
+            
+        } catch (e) {
+            showError("Unable to parse file string into memory: " + e.message);
+        }
+    }
+
+
+
 
 
 

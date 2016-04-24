@@ -71,7 +71,7 @@ lsnr_betty =
 # understanding just how badly defined this entry is!
 # Oh, it is also a alias list too!
 #--------------------------------------------------------------------
-alias_1,alias_2.world,alias3.dunbar-it.co.uk =
+alias3.dunbar-it.co.uk =
     (description_list =
        (load_balance = no)
        (load_balance = yes)
@@ -181,7 +181,7 @@ alias_1,alias_2.world,alias3.dunbar-it.co.uk =
 #--------------------------------------------------------------------
 # Sanity returns, this one is valid.
 #--------------------------------------------------------------------
-barney =
+alias1,alias2,barney =
     (description =
         (address = (protocol = tcp)(host = srvr_barney.world.co.uk)(port = 1522))
         (connect_data =
