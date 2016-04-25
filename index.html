@@ -89,15 +89,6 @@
                 <span class="glyphicon glyphicon-hdd glyphicon-pd-left"></span>
                 <span title="File Size">{{file.size | bytes}}</span>
 
-                <!--
-
-                <span class="glyphicon glyphicon-exclamation-sign glyphicon-pd-left"></span>
-                <span title="Parse Errors">{{parseErrors.length}} Errors</span>
-
-                <span class="glyphicon glyphicon-list glyphicon-pd-left"></span>
-                <span title="TNS Entries">{{entries.length}} Entries</span>
-
-                -->
             </div>
         </div>
     </div>
@@ -107,95 +98,6 @@
 
 
 
-
-
-
-
-
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <!-- About -->
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <div class="wrapper-about" ng-hide="file">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="well">
-                        <h4>What should I do and why use this?</h4>
-                        <hr/>
-                        <p>
-                            This application explores large tnsnames.ora files which can often become unmanageable or disconnected.
-                            Once you have located your tnsname.ora you can drop the file in the area above.
-                            The file is then parsed and exposed in the browser.
-                        </p>
-                        <p>
-                            Look, tnsnames.ora files are pretty boring, but this application can explore files in a few ways:
-                            If you are experiencing syntax issues with your tnsnames.ora file or
-                            if you are interested in sorting your tns entries. 
-                        </p>
-                        <p>
-                            Please note, <strong>no data is sent to a server</strong>, a large goal of this application is to keep the text local.
-                        </p>
-                    </div>
-                    <div class="well">
-
-                        <h4>How does it work?</h4>
-                        <hr/>
-                        <p>
-                            The heart of this application is an Antlr4 tnsnames.ora parser. Thankfully Antlr4 has a javascript 'grammar' export ability which this application leverages to determine any possible syntax issues and allows for examining each tnsnames.ora attribute.  This is present to you the user for whatever purpose you have.
-                        </p>
-                        <p>
-                            A special thanks goes out to all those who have developed the 
-                            <a tarbet="_blank" href="https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4">
-                                tnsnames.g4
-                            </a> 
-                            Antlr4 grammar. This is a rule definition file for the Antlr4 parser.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-sm-6">
-
-                    <div class="well">
-                        <h4>What is a tnsnames.ora file?</h4>
-                        <hr/>
-                        <p>
-                            The tnsnames.ora file is a configuration file that contains net service names mapped to connect descriptors for the local naming method, or net service names mapped to listener protocol addresses.
-                        </p>
-                        <p>
-                            A net service name is an alias mapped to a database network address contained in a connect descriptor. A connect descriptor contains the location of the listener through a protocol address and the service name of the database to which to connect. Clients and database servers use the net service name when making a connection with an application.
-                        </p>
-                        <p>
-                            By default, tnsnames.ora is located in the <code>$ORACLE_HOME/network/admin</code> directory on UNIX operating systems and in the <code>%ORACLE_HOME%\network\admin</code> directory on Windows operating systems.
-                        </p>
-                    </div>
-
-
-                    <div class="well">
-                        <h4>Resources</h4>
-                        <hr/>
-                        <ul class="list-unstyled">
-                            <li> Antlr4 </li>
-                            <li> 
-                                <a title="tnsnames.g4" tarbet="_blank" href="https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4">
-                                    tnsnames.g4
-                                </a> 
-                            </li>
-                            <li>
-                                <a title="tns syntax" target="_blank" href="https://docs.oracle.com/cd/A57673_01/DOC/net/doc/NWUS233/apb.htm">
-                                    Contents of the Configuration Files
-                                </a>
-                            </li>
-                            <li>
-                                <a title="" target="_blank" href="https://docs.oracle.com/cd/B28359_01/network.111/b28317/tnsnames.htm">
-                                    Database Net Services Reference
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -261,6 +163,10 @@
                         <i>{{error.msg}}</i>
                     </li>
                 </ul>
+                Based on 
+                 <a title="tns syntax" target="_blank" href="http://docs.oracle.com/cd/E11882_01/network.112/e10835/tnsnames.htm#NETRF1434">
+                    Oracle 11g R2 Syntax
+                 </a>
             </div>
         </div>
     </div>
@@ -278,32 +184,31 @@
     <div class="wrapper-entries" ng-show="entries">
         <div class="container">
             <div ng-repeat="entry in entries | filter: search | orderBy: sort" class="entryRow">
-                    <h4>
-                        {{entry.alias}}
-                    </h4> 
-                    <ul class="list-unstyled">
-                        <li ng-show="entry.host"> 
-                            <i>Host: {{entry.host}}</i>
-                        </li>
-                        <li> 
-                            <span ng-click="showAttributes = !showAttributes">
-                                Show All Attributes
-                            </span>
+                <h4>
+                    {{entry.alias}}
+                </h4> 
+                <ul class="list-unstyled">
+                    <li ng-show="entry.host"> 
+                        <i>Host: {{entry.host}}</i>
+                    </li>
+                    <li> 
+                        <span ng-click="showAttributes = !showAttributes">
+                            Show All Attributes
+                        </span>
+                    </li>
+                </ul>
+                <div ng-show="showAttributes">
+                    <hr/>
+                    <ul class="list-unstyled" >
+                         <li ng-repeat="key in entryKeys" ng-show="entry[key] && entry[key].indexOf('=)') == -1">
+                            {{key}}: {{entry[key]}}
                         </li>
                     </ul>
-                    <div ng-show="showAttributes">
-                        <hr/>
-                        <ul class="list-unstyled" >
-                             <li ng-repeat="key in entryKeys" ng-show="entry[key] && entry[key].indexOf('=)') == -1">
-                                {{key}}: {{entry[key]}}
-                            </li>
-                        </ul>
-                    </div>
-                    <pre>{{entry.rawText}}</pre> 
                 </div>
+                <pre>{{entry.rawText}}</pre> 
             </div>
-            <div ng-hide="entries.length">
-                Unable to collect TNS entries or there were no TNS entries present
+            <div ng-hide="entries.length" class="entryRow">
+                <b>Unable to collect TNS entries or there were no TNS entries present</b>
             </div>
         </div>
     </div>
@@ -311,6 +216,98 @@
 
 
 
+
+
+
+
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- About -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <div class="wrapper-about" ng-hide="file">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="well">
+                        <h4>What should I do and why use this?</h4>
+                        <hr/>
+                        <p>
+                            This application explores tnsnames.ora files which can often become unmanageable or disconnected.
+                            Once you have located your tnsname.ora you can drop the file in the area above.
+                            The file is then parsed and exposed in the browser checking syntax and allowing for search and filtering.
+                        </p>
+                        <p>
+                            tnsnames.ora files in general are pretty boring and you never really have to deal with them but
+                            when the time comes to crack them open they can be annoying.  
+                            This application exposes their structure offing possible syntax issues and tools to organize entries based on a number of criteria.
+                        </p>
+                        <p>
+                            Please note, <strong>no data is sent to a server</strong>, a large goal of this application is to keep the text local.
+                        </p>
+                    </div>
+                    <div class="well">
+
+                        <h4>How does it work?</h4>
+                        <hr/>
+                        <p>
+                            The heart of this application is an Antlr4 tnsnames.ora parser. 
+                            Thankfully Antlr4 has a JavaScript 'grammar' export ability which we leverage to parse the tnsnames.ora structure into the browsers memory.
+                        </p>
+                        <p>
+                            Once in memory, we can perform several cleanup actions like alerting on possible syntax issues in the tnsnames.ora text or manipulating the order of tnsnames.ora entries. 
+                        </p>
+                        <p>
+                            A special thanks goes out to all those who have developed the 
+                            <a tarbet="_blank" href="https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4">
+                                tnsnames.g4
+                            </a>. 
+                            This grammar is based on the <b>Oracle 11g Release 2</b> Network Reference manual  
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+
+                    <div class="well">
+                        <h4>What is a tnsnames.ora file?</h4>
+                        <hr/>
+                        <p>
+                            The tnsnames.ora file is a configuration file that contains net service names mapped to connect descriptors for the local naming method, or net service names mapped to listener protocol addresses.
+                        </p>
+                        <p>
+                            A net service name is an alias mapped to a database network address contained in a connect descriptor. A connect descriptor contains the location of the listener through a protocol address and the service name of the database to which to connect.                      
+                       </p>
+                        <p>
+                            Clients and database servers use the net service name when making a connection with an application.
+                            By default, tnsnames.ora is located in the <code>$ORACLE_HOME/network/admin</code> directory on UNIX operating systems and in the <code>%ORACLE_HOME%\network\admin</code> directory on Windows operating systems.
+                        </p>
+                    </div>
+
+
+                    <div class="well">
+                        <h4>Resources</h4>
+                        <hr/>
+                        <ul class="list-unstyled">
+                            <li> 
+                                <a title="Antlr4" target="_blank" href="http://www.antlr.org/">
+                                    Antlr4 
+                                </a>
+                            </li>
+                            <li> 
+                                <a title="tnsnames.g4" target="_blank" href="https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4">
+                                    tnsnames.g4
+                                </a> 
+                            </li>
+                            <li>
+                                <a title="tns syntax" target="_blank" href="http://docs.oracle.com/cd/E11882_01/network.112/e10835/tnsnames.htm#NETRF1434">
+                                    Oracle 11gR2 Network Reference
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
