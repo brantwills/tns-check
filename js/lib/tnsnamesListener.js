@@ -67,15 +67,10 @@ function baseListener(ctx){
 
 // Enter a parse tree produced by tnsnamesParser#tnsnames.
 tnsnamesListener.prototype.enterTnsnames = function(ctx) {
-
-    console.log('enter:', ctx);
-    console.log('--------------------');
 };
 
 // Exit a parse tree produced by tnsnamesParser#tnsnames.
 tnsnamesListener.prototype.exitTnsnames = function(ctx) {
-    console.log('exit:', ctx);
-    console.log('--------------------');
     baseListener(ctx); 
 };
 

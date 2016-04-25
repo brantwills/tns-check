@@ -170,8 +170,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
                 });
                 error.alias = alias || 'Unknown';
             });
-
-            console.log(errors);
         } catch (e) {
             showError("Unable to associate errors to alias: " + e.message);
         }
