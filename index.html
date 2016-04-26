@@ -78,17 +78,15 @@
     <!-- ////////////////////////////////////////////////////////////////// -->
     <div ng-show="file" class="wrapper-file">
         <div class="container">
-            <h3>
-                {{file.name}}
-            </h3>
-            <div>
-
+            <div class="file-info">
+                <h3>
+                    {{file.name}}
+                </h3>
                 <span class="glyphicon glyphicon-calendar"></span>
                 <span title="Last Modified Date">{{file.lastModifiedDate | date}}</span>
 
                 <span class="glyphicon glyphicon-hdd glyphicon-pd-left"></span>
                 <span title="File Size">{{file.size | bytes}}</span>
-
             </div>
         </div>
     </div>
@@ -143,7 +141,6 @@
 
 
 
-
     <!-- ////////////////////////////////////////////////////////////////// -->
     <!-- Parsing Syntax Errors-->
     <!-- ////////////////////////////////////////////////////////////////// -->
@@ -170,7 +167,6 @@
             </div>
         </div>
     </div>
-
 
 
 
@@ -216,6 +212,21 @@
 
 
 
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- Exporter -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <div class="wrapper-export" ng-show="entries.length">
+        <div class="container">
+            <div class="well">
+                <span class="btn btn-default" ng-click="ExportEntries()">
+                    <span class="glyphicon glyphicon-save"></span>
+                    Copy to Clipboard
+                </span>
+                <br/>
+                <textarea class="form-control">{{export}}</textarea>
+            </div>
+        </div>
+    </div>
 
 
 
