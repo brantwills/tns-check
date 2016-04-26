@@ -1,4 +1,4 @@
-angular.module('app-tns').controller('tnsController', ['$scope', function($scope) {
+angular.module('app-tns').controller('tnsController', ['$scope', '$filter', function($scope, $filter) {
 
     /**
      * Load our antlr4 object  
@@ -170,8 +170,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
                 });
                 error.alias = alias || 'Unknown';
             });
-
-            console.log(errors);
         } catch (e) {
             showError("Unable to associate errors to alias: " + e.message);
         }
@@ -277,6 +275,25 @@ angular.module('app-tns').controller('tnsController', ['$scope', function($scope
         $scope.entries = "";
         $scope.parseErrors = "";
     }
+
+
+    $scope.ExportEntries = function(){
+        try{
+
+            var filteredEntries = $filter('orderBy')($scope.entries, $scope.sort);
+            filteredEntries = $filter('filter')(filteredEntries, $scope.search);
+
+            $scope.export = "";
+            angular.forEach(filteredEntries, function(entry, index){
+                $scope.export += entry.rawText;
+                $scope.export += '\n';
+            });
+
+        } catch (e) {
+            showError("Unable to export entries: " + e.message);
+        }
+    }
+
 
 
     /**

@@ -65,7 +65,7 @@ body {
 }
 
 .jumbo-sm {
-    padding: 20px 0 10px;
+    padding: 20px 0 0;
     margin: 0;
 }
 
@@ -97,6 +97,7 @@ body {
 .wrapper-file,
 .wrapper-about,
 .wrapper-filter,
+.wrapper-export,
 .wrapper-entries,
 .wrapper-parseErrors {
     margin-bottom: 20px;
@@ -130,7 +131,11 @@ body {
 .wrapper-file {
     color: #fff;
     background: #62629e; 
-    padding: 0 0 20px;
+}
+
+.wrapper-file .file-info{
+    text-align: center;
+    padding: 10px 0 30px;
 }
 
 
@@ -155,11 +160,14 @@ body {
     border: none;
     border-radius: 0;
     padding: 20px;
-    margin: 20px 0 0;
+    margin: 20px -20px -20px;
 }
 
 
-
+.wrapper-export textarea{
+    margin-top: 20px;
+    height: 400px;
+}
 
 
 /* /////////////////////////////////////////////////////////// */
