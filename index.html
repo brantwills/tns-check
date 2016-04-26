@@ -23,9 +23,6 @@
 
 
 
-
-
-
     <!-- ////////////////////////////////////////////////////////////////// -->
     <!-- Heading Area -->
     <!-- ////////////////////////////////////////////////////////////////// -->
@@ -67,12 +64,6 @@
 
 
 
-
-
-
-
-
-
     <!-- ////////////////////////////////////////////////////////////////// -->
     <!-- File of Interest-->
     <!-- ////////////////////////////////////////////////////////////////// -->
@@ -90,51 +81,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <!-- Search and Filter -->
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <div class="wrapper-filter" ng-show="entries">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </span>
-                        <input type="text" class="form-control" placeholder="Search for..." ng-model="search">
-                        <span class="input-group-addon" ng-click="ClearSearch();">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-sort-by-alphabet"></span>
-                        </span>
-                        <select class="form-control" ng-model="sort">
-                            <option value="">Sort By...</option>
-                            <option ng-repeat="key in entryKeys">
-                                {{key}}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
 
 
@@ -160,6 +106,7 @@
                         <i>{{error.msg}}</i>
                     </li>
                 </ul>
+                <hr/>
                 Based on 
                  <a title="tns syntax" target="_blank" href="http://docs.oracle.com/cd/E11882_01/network.112/e10835/tnsnames.htm#NETRF1434">
                     Oracle 11g R2 Syntax
@@ -171,40 +118,19 @@
 
 
 
-
-
-
     <!-- ////////////////////////////////////////////////////////////////// -->
-    <!-- Parsed Entries-->
+    <!-- No entries -->
     <!-- ////////////////////////////////////////////////////////////////// -->
-    <div class="wrapper-entries" ng-show="entries">
+    <div class="wrapper-entries" ng-show="file">
         <div class="container">
-            <div ng-repeat="entry in entries | filter: search | orderBy: sort" class="entryRow">
-                <h4>
-                    {{entry.alias}}
-                </h4> 
-                <ul class="list-unstyled">
-                    <li ng-show="entry.host"> 
-                        <i>Host: {{entry.host}}</i>
-                    </li>
-                    <li> 
-                        <span ng-click="showAttributes = !showAttributes">
-                            Show All Attributes
-                        </span>
-                    </li>
-                </ul>
-                <div ng-show="showAttributes">
-                    <hr/>
-                    <ul class="list-unstyled" >
-                         <li ng-repeat="key in entryKeys" ng-show="entry[key] && entry[key].indexOf('=)') == -1">
-                            {{key}}: {{entry[key]}}
-                        </li>
-                    </ul>
-                </div>
-                <pre>{{entry.rawText}}</pre> 
-            </div>
             <div ng-hide="entries.length" class="entryRow">
-                <b>Unable to collect TNS entries or there were no TNS entries present</b>
+                <h5><b>Unable to collect TNS entries or there were no TNS entries present</b></h5>
+                <p>
+                    This often happens if there were multiple errors in your file and the parser is unable to complete.
+                </p>
+                <p>
+                    Another common reason is parsing a different type of .ORA file which may not be supported.
+                </p>
             </div>
         </div>
     </div>
@@ -212,21 +138,124 @@
 
 
 
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <!-- Exporter -->
-    <!-- ////////////////////////////////////////////////////////////////// -->
-    <div class="wrapper-export" ng-show="entries.length">
-        <div class="container">
-            <div class="well">
-                <span class="btn btn-default" ng-click="ExportEntries()">
-                    <span class="glyphicon glyphicon-save"></span>
-                    Copy to Clipboard
-                </span>
-                <br/>
-                <textarea class="form-control">{{export}}</textarea>
+
+    <div class="container" ng-show="entries.length">
+        <div class="row">
+            <div class="col-lg-6">
+
+
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <!-- Search and Filter -->
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <div class="wrapper-filter">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="Search for..." ng-model="search" ng-keypress="ExportEntries()">
+                                    <span class="input-group-addon" ng-click="ClearSearch();">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-sort-by-alphabet"></span>
+                                    </span>
+                                    <select class="form-control" ng-model="sort" ng-change="ExportEntries()">
+                                        <option value="">Sort By...</option>
+                                        <option ng-repeat="key in entryKeys">
+                                            {{key}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <!-- Parsed Entries-->
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <div class="wrapper-entries">
+                    <div ng-repeat="entry in entries | filter: search | orderBy: sort" class="entryRow">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <strong> {{entry.alias}} </strong>
+                            </div>
+                            <div class="col-xs-6">
+                                <span class="text-muted pull-right" ng-click="showAttributes = !showAttributes">
+                                    Show All Attributes
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="small" ng-show="showAttributes">
+                            <div class="well">
+                                <ul class="list-unstyled" >
+                                     <li ng-repeat="key in entryKeys" ng-show="entry[key] && entry[key].indexOf('=)') == -1">
+                                        {{key}}: {{entry[key]}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <pre>{{entry.rawText}}</pre> 
+                    </div>
+                </div>
+
+
             </div>
+
+
+            <div class="col-lg-6">
+
+
+
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <!-- Exporter -->
+                <!-- ////////////////////////////////////////////////////////////////// -->
+                <div class="wrapper-export">
+                    <div class="well">
+                        <span class="btn btn-default" ng-click="ExportEntries()">
+                            <span class="glyphicon glyphicon-refresh"></span>
+                            Refresh Export
+                        </span>
+
+                        <span class="btn btn-copy btn-default" data-clipboard-target="#rawText">
+                            <span class="glyphicon glyphicon-copy"></span>
+                            Copy to Clipboard
+                        </span>
+
+                        <br/>
+
+                        <textarea id="rawText" class="form-control">{{export}}</textarea>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
         </div>
+
     </div>
+
+
+        
+
+
+
+
+
 
 
 
@@ -341,18 +370,11 @@
 
 
 
-
-
-
-
-
-
-
-
     <!-- ////////////////////////////////////////////////////////////////// -->
     <!-- Script -->
     <!-- ////////////////////////////////////////////////////////////////// -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
     <script src="js/lib/require.js"></script>
     <script src="js/app/app.js"></script>
     <script src="js/app/tns-controller.js"></script>

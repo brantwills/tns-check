@@ -2,9 +2,8 @@
 // jshint ignore: start
 var antlr4 = require('js/lib/antlr4/index');
 
-
-var alias = "";
-
+// The alias index is the start line of the alias
+var aliasIndex;
 
 // This class defines a complete listener for a parse tree produced by tnsnamesParser.
 function tnsnamesListener() {
@@ -31,32 +30,32 @@ function baseListener(ctx){
         var value = "";
 
         angular.forEach(ctx.children, function(item, index){
+            
+            // Concate all children symbol text to get full values
             if(item.symbol){
                 value += item.symbol.text;
             }
 
             // We trap the endlines for completed tnsnames
             if(rule == 'tnsnames' && item.start && item.stop){
-
-                var tnsnamesAlias = item.start.text;
-                if(tns.entries[tnsnamesAlias]){
-                    tns.entries[tnsnamesAlias].endLine = item.stop.line;
-                    tns.entries[tnsnamesAlias].startLine = item.start.line;
-                }
+                var tnsIndex = item.start.line;
+                tns.entries[tnsIndex].endLine = item.stop.line;
+                tns.entries[tnsIndex].startLine = item.start.line;
             }
 
         });
 
-        // todo(bwills): wondering if this could be done with rule index 0?
+
         if(value.length){
 
-            if(rule == 'alias' && alias != value){
-                alias = value;
+            // Detect when we have a new alias index
+            if(rule == 'alias' && aliasIndex != ctx.start.line){
+                aliasIndex = ctx.start.line;
             }
 
-            tns.entries[alias] = tns.entries[alias] || {};
-            tns.entries[alias][rule] = tns.entries[alias][rule] || [];
-            tns.entries[alias][rule].push(value);
+            tns.entries[aliasIndex] = tns.entries[aliasIndex] || {};
+            tns.entries[aliasIndex][rule] = tns.entries[aliasIndex][rule] || [];
+            tns.entries[aliasIndex][rule].push(value);
         }
     }
 }

@@ -18,6 +18,31 @@ body {
 }
 
 
+
+
+/* /////////////////////////////////////////////////////////// */
+/* flexbox container */
+/* /////////////////////////////////////////////////////////// */
+
+.flexbox-container {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flexbox-left {
+    width: 50%;
+    padding: 10px;
+}
+
+.flexbox-right {
+    background: #ededed;
+}
+
+
+
+
+
 /* /////////////////////////////////////////////////////////// */
 /* Helpers */
 /* /////////////////////////////////////////////////////////// */
@@ -134,7 +159,6 @@ body {
 }
 
 .wrapper-file .file-info{
-    text-align: center;
     padding: 10px 0 30px;
 }
 
@@ -164,9 +188,14 @@ body {
 }
 
 
+.wrapper-export {
+    text-align: right;
+}
+
 .wrapper-export textarea{
     margin-top: 20px;
-    height: 400px;
+    overflow: auto;
+    height: 1000px;
 }
 
 

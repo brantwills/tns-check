@@ -222,6 +222,9 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', func
             var tree = parser.tnsnames();
             antlr4.tree.ParseTreeWalker.DEFAULT.walk(listener, tree);
 
+
+            console.log(tns.entries);
+
             // If we have errors associate the correct alias 
             if(tns.errors.length){
                 associateAliasToErrors(tns.entries, tns.errors);
@@ -234,6 +237,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', func
             $scope.parseErrors = tns.errors;
             $scope.entryKeys = getAllKeysFromEntries(tns.entries);
             $scope.entries = setTextFromFileString(tns.entries, fileString);
+            $scope.ExportEntries();
 
             
         } catch (e) {
@@ -261,6 +265,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', func
      */
     $scope.ClearSearch = function (){
         $scope.search = "";
+        $scope.ExportEntries()
     }
 
 
@@ -274,9 +279,14 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', func
         $scope.errors = "";
         $scope.entries = "";
         $scope.parseErrors = "";
+        $scope.ExportEntries()
     }
 
 
+
+    /**
+     * Based on the filtering export the entries 
+     */
     $scope.ExportEntries = function(){
         try{
 
