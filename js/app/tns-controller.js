@@ -307,6 +307,18 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', func
 
 
 
+    $scope.MoveEntryUp = function(){
+
+    }
+
+    $scope.MoveEntryDown = function(){
+        
+    }
+
+    $scope.ToggleEntryVisibility = function(){
+        
+    }
+
     /**
      * The start of our parsing process
      * If there are no ora files detected we throw and error

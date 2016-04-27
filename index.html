@@ -207,14 +207,23 @@
                         <div class="row">
                             <div class="col-xs-6">
                                 <strong> {{entry.alias}} </strong>
+                                <div class="text-muted" ng-click="showAttributes = !showAttributes">
+                                    <small>
+                                        <span class="glyphicon glyphicon-list"></span>
+                                        <span ng-show="showAttributes">Hide</span> 
+                                        <span ng-hide="showAttributes">Show</span> 
+                                        Attributes
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-xs-6">
-                                <small class="text-muted pull-right" ng-click="showAttributes = !showAttributes">
-                                    <span class="glyphicon glyphicon-list"></span>
-                                    <span ng-show="showAttributes">Hide</span> 
-                                    <span ng-hide="showAttributes">Show</span> 
-                                    Attributes
-                                </small>
+                                <div  class="text-muted pull-right">
+                                    <small>
+                                        <span title="Move Up" class="glyphicon glyphicon-pd-left glyphicon-chevron-up"></span>
+                                        <span title="Move Down" class="glyphicon glyphicon-chevron-down"></span>
+                                        <span title="Hide" class="glyphicon glyphicon-eye-close"></span>
+                                    </small>
+                                </div>
                             </div>
                         </div>
 
@@ -266,11 +275,8 @@
 
 
 
-
             </div>
-
         </div>
-
     </div>
 
 
