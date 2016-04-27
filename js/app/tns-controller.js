@@ -234,6 +234,7 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', func
             formatEntriesForDisplay(tns.entries);
 
             // Assign the scope values
+            $scope.showRawText = true;
             $scope.parseErrors = tns.errors;
             $scope.entryKeys = getAllKeysFromEntries(tns.entries);
             $scope.entries = setTextFromFileString(tns.entries, fileString);

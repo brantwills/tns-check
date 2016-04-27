@@ -78,6 +78,9 @@
 
                 <span class="glyphicon glyphicon-hdd glyphicon-pd-left"></span>
                 <span title="File Size">{{file.size | bytes}}</span>
+
+                <span class="glyphicon glyphicon-list glyphicon-pd-left"></span>
+                <span title="File Size">{{entries.length}} Entries</span>
             </div>
         </div>
     </div>
@@ -137,6 +140,52 @@
 
 
 
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <!-- Search and Filter -->
+    <!-- ////////////////////////////////////////////////////////////////// -->
+    <div class="wrapper-filter" ng-show="entries.length">
+        <div class="container">
+            <div class="well">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Search for..." ng-model="search">
+                            <span class="input-group-addon" ng-click="ClearSearch();">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <br class="visible-xs"/>
+                    <div class="col-sm-4">
+                        <select class="form-control" ng-model="sort" ng-change="ExportEntries()">
+                            <option value="">Sort By...</option>
+                            <option ng-repeat="key in entryKeys">
+                                {{key}}
+                            </option>
+                        </select>
+                    </div>
+                    <br class="visible-xs"/>
+                    <div class="col-sm-2">
+                        <div class="pull-right">
+                            <span class="btn btn-default" ng-click="showRawText = !showRawText">
+                                <span class="fa fa-code"></span>
+                                <span ng-hide="showRawText">Show</span>
+                                <span ng-show="showRawText">Hide</span>
+                                Text
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 
     <div class="container" ng-show="entries.length">
@@ -144,39 +193,7 @@
             <div class="col-lg-6">
 
 
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <!-- Search and Filter -->
-                <!-- ////////////////////////////////////////////////////////////////// -->
-                <div class="wrapper-filter">
-                    <div class="well">
-                        <div class="row">
-                            <div class="col-sm-7">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                    </span>
-                                    <input type="text" class="form-control" placeholder="Search for..." ng-model="search" ng-keypress="ExportEntries()">
-                                    <span class="input-group-addon" ng-click="ClearSearch();">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-sort-by-alphabet"></span>
-                                    </span>
-                                    <select class="form-control" ng-model="sort" ng-change="ExportEntries()">
-                                        <option value="">Sort By...</option>
-                                        <option ng-repeat="key in entryKeys">
-                                            {{key}}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
 
 
 
@@ -192,14 +209,17 @@
                                 <strong> {{entry.alias}} </strong>
                             </div>
                             <div class="col-xs-6">
-                                <span class="text-muted pull-right" ng-click="showAttributes = !showAttributes">
-                                    Show All Attributes
-                                </span>
+                                <small class="text-muted pull-right" ng-click="showAttributes = !showAttributes">
+                                    <span class="glyphicon glyphicon-list"></span>
+                                    <span ng-show="showAttributes">Hide</span> 
+                                    <span ng-hide="showAttributes">Show</span> 
+                                    Attributes
+                                </small>
                             </div>
                         </div>
 
-                        <div class="small" ng-show="showAttributes">
-                            <div class="well">
+                        <div ng-show="showAttributes">
+                            <div class="well well-light">
                                 <ul class="list-unstyled" >
                                      <li ng-repeat="key in entryKeys" ng-show="entry[key] && entry[key].indexOf('=)') == -1">
                                         {{key}}: {{entry[key]}}
@@ -207,7 +227,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <pre>{{entry.rawText}}</pre> 
+                        <pre ng-show="showRawText">{{entry.rawText}}</pre> 
                     </div>
                 </div>
 
@@ -224,18 +244,22 @@
                 <!-- ////////////////////////////////////////////////////////////////// -->
                 <div class="wrapper-export">
                     <div class="well">
-                        <span class="btn btn-default" ng-click="ExportEntries()">
-                            <span class="glyphicon glyphicon-refresh"></span>
-                            Refresh Export
-                        </span>
-
-                        <span class="btn btn-copy btn-default" data-clipboard-target="#rawText">
-                            <span class="glyphicon glyphicon-copy"></span>
-                            Copy to Clipboard
-                        </span>
-
-                        <br/>
-
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <span class="btn btn-default" ng-click="ExportEntries()">
+                                    <span class="glyphicon glyphicon-refresh"></span>
+                                    Refresh Export
+                                </span>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="pull-right">
+                                    <span class="btn btn-copy btn-default" data-clipboard-target="#rawText">
+                                        <span class="fa fa-copy"></span>
+                                        Copy to Clipboard
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                         <textarea id="rawText" class="form-control">{{export}}</textarea>
                     </div>
                 </div>
