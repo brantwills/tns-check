@@ -18,6 +18,31 @@ body {
 }
 
 
+
+
+/* /////////////////////////////////////////////////////////// */
+/* flexbox container */
+/* /////////////////////////////////////////////////////////// */
+
+.flexbox-container {
+    display: -ms-flex;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flexbox-left {
+    width: 50%;
+    padding: 10px;
+}
+
+.flexbox-right {
+    background: #ededed;
+}
+
+
+
+
+
 /* /////////////////////////////////////////////////////////// */
 /* Helpers */
 /* /////////////////////////////////////////////////////////// */
@@ -40,7 +65,10 @@ body {
     color: #000;
 }
 
-
+.well-light {
+    background: #fff;
+    margin-top: 20px;
+}
 
 
 
@@ -104,14 +132,6 @@ body {
 }
 
 
-.wrapper-about {
-    font-size: 16px;
-}
-
-.wrapper-about h4 {
-    color: #62629e;
-}
-
 .wrapper-about p {
     line-height: 26px;
 }
@@ -123,25 +143,31 @@ body {
 
 
 .wrapper-filter{
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
+
+
 
 
 
 .wrapper-file {
     color: #fff;
     background: #62629e; 
+    padding-left: 20px;
 }
 
 .wrapper-file .file-info{
-    text-align: center;
     padding: 10px 0 30px;
 }
+
+
 
 
 .wrapper-parseErrors li {
     padding: 0 0 5px;
 }
+
+
 
 
 
@@ -155,18 +181,31 @@ body {
 
 .wrapper-entries pre{
     overflow: auto;
+    /*
     color: #eff0ff;
     background: #545454;
+    */
     border: none;
     border-radius: 0;
     padding: 20px;
-    margin: 20px -20px -20px;
+    margin: 0px -20px -20px;
+}
+
+.wrapper-entries .pull-right {
+    cursor: pointer;
 }
 
 
+
+.wrapper-export .well {
+    border: none;
+    background: #545454;
+}
+
 .wrapper-export textarea{
     margin-top: 20px;
-    height: 400px;
+    overflow: auto;
+    height: 1000px;
 }
 
 
