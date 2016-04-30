@@ -74,9 +74,6 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
         $scope.entryKeys = tnsHelper.getAllKeysFromEntries(tns.entries);
         $scope.entries = tnsHelper.setTextFromFileString(tns.entries, fileString);
         $scope.ExportEntries();
-
-        // Manually update the scope from directive
-        // todo(bwills): figure out a way to remove this
         $scope.$apply();
     }
 
@@ -104,13 +101,31 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
     }
 
 
-    $scope.MoveEntryUp = function(){
+    /**
+     * Move list items up or down or swap
+     */
+    $scope.MoveItem = function (origin, destination) {
+        var temp = $scope.entries[destination];
+        $scope.entries[destination] = $scope.entries[origin];
+        $scope.entries[origin] = temp;
+        $scope.ExportEntries();
+    };
 
-    }
 
-    $scope.MoveEntryDown = function(){
-        
-    }
+    /**
+     * Move list items up
+     */
+    $scope.MoveUp = function (entry) {
+        $scope.MoveItem(entry.index, entry.index - 1);
+    };
+
+
+    /**
+     * Move list items down
+     */
+    $scope.MoveDown = function (entry) {
+        $scope.MoveItem(entry.index, entry.index + 1);
+    };
 
 
     /**
@@ -133,11 +148,12 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
     $scope.ExportEntries = function(){
         try{
 
-            var filteredEntries = $filter('orderBy')($scope.entries, $scope.sort);
-            filteredEntries = $filter('filter')(filteredEntries, $scope.search);
-
             $scope.export = "";
-            angular.forEach(filteredEntries, function(entry, index){
+            $scope.entries = $filter('orderBy')($scope.entries, $scope.sort);
+            $scope.entries = $filter('filter')($scope.entries, $scope.search);
+
+            angular.forEach($scope.entries, function(entry, index){
+                entry.index = index;
                 if(entry.isVisible){
                     $scope.export += entry.rawText;
                     $scope.export += '\n';
@@ -175,12 +191,8 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
 
         } catch (e) {
             $scope.errors = "Unable to parse file: " + e.message;
-
-            // Manually update the scope from directive
-            // todo(bwills): figure out a way to remove this
             $scope.$apply();
         }
-
-
     }
+
 }]);

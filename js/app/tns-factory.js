@@ -123,17 +123,22 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 	    /**
 	     * Convert array values into joined strings 
 	     * Set the isVisible value to true
+	     * Set the entry index value for moving position 
 	     *
 	     * @param entries {Object} - the array of tns entries to examine
 	     */
 	    formatEntriesForDisplay: function(entries){
 	        try{
 	            angular.forEach(entries, function(entry, index){
+	            	
+                    entry.index = index;
+                    entry.isVisible = true;
+
 	                for (var key in entry) {
 	                    if (entry.hasOwnProperty(key) && angular.isArray(entry[key])){ 
 	                        entry[key] = entry[key].join(', ');
 	                    }
-	                    entry.isVisible = true;
+
 	                }
 	            });
 	        } catch (e) {
