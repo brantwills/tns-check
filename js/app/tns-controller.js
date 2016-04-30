@@ -150,17 +150,28 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
     /**
      * Based on the filtering export the entries 
      * And if the entry is marked as visible
+     * Calculate the text height based on rawText
      * todo(bwills): rename this as it is being used all over the place now
      */
     $scope.ExportEntries = function(){
         try{
 
             $scope.export = "";
+            $scope.textHeight = 0;
             $scope.entries = $filter('orderBy')($scope.entries, $scope.sort);
-            $scope.entries = $filter('filter')($scope.entries, $scope.search);
+            var filterEntries = $filter('filter')($scope.entries, $scope.search);
 
+            // We do not want to destroy the index sort for moving items around
             angular.forEach($scope.entries, function(entry, index){
                 entry.index = index;
+            });
+
+            // This is the loop for the actual items in the text area
+            angular.forEach(filterEntries, function(entry, index){
+
+                entry.index = index;
+                $scope.textHeight += entry.rawText.split(/\r\n|\r|\n/).length;
+
                 if(entry.isVisible){
                     $scope.export += entry.rawText;
                     $scope.export += '\n';

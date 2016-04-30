@@ -152,7 +152,7 @@
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-search"></span>
                             </span>
-                            <input type="text" class="form-control" placeholder="Search for..." ng-model="search">
+                            <input class="form-control" placeholder="Search for..." ng-model="search" ng-keyup="ExportEntries()">
                             <span class="input-group-addon" ng-click="ClearSearch();">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </span>
@@ -203,7 +203,7 @@
                 <!-- Parsed Entries-->
                 <!-- ////////////////////////////////////////////////////////////////// -->
                 <div class="wrapper-entries">
-                    <div ng-repeat="entry in entries | orderBy: index" ng-class="entry.isVisible ? 'entryRow' : 'entryRow entryHidden'">
+                    <div ng-repeat="entry in entries | filter: search | orderBy: index" ng-class="entry.isVisible ? 'entryRow' : 'entryRow entryHidden'">
                         <div class="row">
                             <div class="col-xs-6">
                                 <strong>{{entry.alias}} </strong>
@@ -253,23 +253,11 @@
                 <!-- ////////////////////////////////////////////////////////////////// -->
                 <div class="wrapper-export">
                     <div class="well">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <span class="btn btn-sm btn-default" ng-click="ExportEntries()">
-                                    <span class="glyphicon glyphicon-refresh"></span>
-                                    Refresh Export
-                                </span>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="pull-right">
-                                    <span class="btn btn-sm btn-copy btn-default" data-clipboard-target="#rawText">
-                                        <span class="fa fa-copy"></span>
-                                        Copy to Clipboard
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <textarea id="rawText" class="form-control">{{export}}</textarea>
+                        <span class="btn btn-sm btn-copy btn-default" data-clipboard-target="#rawText">
+                            <span class="fa fa-copy"></span>
+                            Copy to Clipboard 
+                        </span>
+                        <textarea id="rawText" style="height: {{textHeight * 25}}px" class="form-control">{{export}}</textarea>
                     </div>
                 </div>
 
