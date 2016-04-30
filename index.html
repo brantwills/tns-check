@@ -203,11 +203,14 @@
                 <!-- Parsed Entries-->
                 <!-- ////////////////////////////////////////////////////////////////// -->
                 <div class="wrapper-entries">
-                    <div ng-repeat="entry in entries | filter: search | orderBy: sort" class="entryRow">
+                    <div 
+                        ng-repeat="entry in entries | filter: search | orderBy: sort" 
+                        ng-class="entry.isVisible ? '' : 'entryHidden'" 
+                        class="entryRow">
                         <div class="row">
                             <div class="col-xs-6">
                                 <strong> {{entry.alias}} </strong>
-                                <div class="text-muted" ng-click="showAttributes = !showAttributes">
+                                <div class="text-muted attributes" ng-click="showAttributes = !showAttributes">
                                     <small>
                                         <span class="glyphicon glyphicon-list"></span>
                                         <span ng-show="showAttributes">Hide</span> 
@@ -221,7 +224,7 @@
                                     <small>
                                         <span title="Move Up" class="glyphicon glyphicon-pd-left glyphicon-chevron-up"></span>
                                         <span title="Move Down" class="glyphicon glyphicon-chevron-down"></span>
-                                        <span title="Hide" class="glyphicon glyphicon-eye-close"></span>
+                                        <span title="Hide" class="glyphicon glyphicon-eye-close" ng-click="ToggleEntryVisibility(entry)"></span>
                                     </small>
                                 </div>
                             </div>
@@ -255,14 +258,14 @@
                     <div class="well">
                         <div class="row">
                             <div class="col-xs-6">
-                                <span class="btn btn-default" ng-click="ExportEntries()">
+                                <span class="btn btn-sm btn-default" ng-click="ExportEntries()">
                                     <span class="glyphicon glyphicon-refresh"></span>
                                     Refresh Export
                                 </span>
                             </div>
                             <div class="col-xs-6">
                                 <div class="pull-right">
-                                    <span class="btn btn-copy btn-default" data-clipboard-target="#rawText">
+                                    <span class="btn btn-sm btn-copy btn-default" data-clipboard-target="#rawText">
                                         <span class="fa fa-copy"></span>
                                         Copy to Clipboard
                                     </span>
@@ -407,8 +410,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.10/clipboard.min.js"></script>
     <script src="js/lib/require.js"></script>
     <script src="js/app/app.js"></script>
-    <script src="js/app/tns-controller.js"></script>
+    <script src="js/app/tns-factory.js"></script>
     <script src="js/app/tns-directive.js"></script>
+    <script src="js/app/tns-controller.js"></script>
     <script src="js/app/tns-filter.js"></script>
 
 </body>

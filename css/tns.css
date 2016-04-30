@@ -179,21 +179,27 @@ body {
     margin-bottom: 40px;
 }
 
+.wrapper-entries .entryHidden{
+    opacity: .5;
+}
+
+.wrapper-entries .pull-right {
+    cursor: pointer;
+}
+
 .wrapper-entries pre{
     overflow: auto;
-    /*
-    color: #eff0ff;
-    background: #545454;
-    */
     border: none;
     border-radius: 0;
     padding: 20px;
     margin: 0px -20px -20px;
 }
 
-.wrapper-entries .pull-right {
+.wrapper-entries .attributes{
     cursor: pointer;
+    padding: 3px 0 0;
 }
+
 
 
 
