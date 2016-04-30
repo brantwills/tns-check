@@ -1,10 +1,7 @@
-# tnsnamer
-
-todo(bwills): "tnsnamer".. really..  find a better name! 
-
+# tns-check
 
 Oracle tnsnames.ora exploration web tool
 
 In Development Sprints 
 
-Demo: http://brantwills.github.io/tnsnamer/
+Demo: http://brantwills.github.io/tns-check/
