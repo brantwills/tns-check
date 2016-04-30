@@ -3,7 +3,7 @@ angular.module('app-tns').factory('tnsHelper', [function() {
     /**
      * The Entry Object Keys we want to hide from users
      */
-    var ignoredEntryKeys = 'startLine|endLine|tnsnames';
+    var ignoredEntryKeys = 'startLine|endLine|tnsnames|index|isVisible';
 
 
 	return {
