@@ -105,6 +105,13 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
      * Move list items up or down or swap
      */
     $scope.MoveItem = function (origin, destination) {
+
+        // Ignore if we are moving the first item 
+        // Ignore if we are moving the last item
+        if(destination < 0 || origin > $scope.entries.length){
+            return;
+        }
+
         var temp = $scope.entries[destination];
         $scope.entries[destination] = $scope.entries[origin];
         $scope.entries[origin] = temp;
