@@ -202,20 +202,27 @@ body {
 
 
 
+.wrapper-export {
+    color: #fff;
+    text-align: right;
+}
+
+.wrapper-export #copyText {
+    padding-right: 20px;
+}
 
 .wrapper-export .well {
     border: none;
     background: #545454;
 }
 
-.wrapper-export {
-    text-align: right;
-}
 
 .wrapper-export textarea{
     margin-top: 20px;
     overflow: auto;
 }
+
+
 
 
 /* /////////////////////////////////////////////////////////// */
