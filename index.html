@@ -221,7 +221,7 @@
                                     <small>
                                         <span title="Move Down" class="glyphicon glyphicon-chevron-down" ng-click="MoveDown(entry)"></span>
                                         <span title="Move Up" class="glyphicon glyphicon-chevron-up" ng-click="MoveUp(entry)"></span>
-                                        <span title="Hide" class="glyphicon glyphicon-eye-close" ng-click="ToggleEntryVisibility(entry)"></span>
+                                        <span title="Hide" ng-class="entry.isVisible ? 'glyphicon-eye-close' : 'glyphicon-eye-open'" class="glyphicon" ng-click="ToggleEntryVisibility(entry)"></span>
                                     </small>
                                 </div>
                             </div>
