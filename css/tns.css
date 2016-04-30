@@ -208,10 +208,13 @@ body {
     background: #545454;
 }
 
+.wrapper-export {
+    text-align: right;
+}
+
 .wrapper-export textarea{
     margin-top: 20px;
     overflow: auto;
-    height: 1000px;
 }
 
 
