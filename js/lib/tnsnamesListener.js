@@ -20,10 +20,8 @@ function baseListener(ctx){
 
     var rule = tns.parser.ruleNames[ctx.ruleIndex];
 
-    /*
     console.log('Rule:', rule, ctx);
     console.log('--------------------');
-    */
 
     if(ctx.children){
 
@@ -38,9 +36,15 @@ function baseListener(ctx){
 
             // We trap the endlines for completed tnsnames
             if(rule == 'tnsnames' && item.start && item.stop){
-                var tnsIndex = item.start.line;
-                tns.entries[tnsIndex].endLine = item.stop.line;
-                tns.entries[tnsIndex].startLine = item.start.line;
+                try{
+                    var tnsIndex = item.start.line;
+                    tns.entries[tnsIndex].endLine = item.stop.line;
+                    tns.entries[tnsIndex].startLine = item.start.line;
+
+                }
+                catch(e){
+                    console.log(tns.entries[tnsIndex], ctx);
+                }
             }
 
         });
@@ -49,7 +53,7 @@ function baseListener(ctx){
         if(value.length){
 
             // Detect when we have a new alias index
-            if(rule == 'alias' && aliasIndex != ctx.start.line){
+            if(rule.match('alias|ifile') && aliasIndex != ctx.start.line){
                 aliasIndex = ctx.start.line;
             }
 
