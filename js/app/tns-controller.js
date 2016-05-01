@@ -156,6 +156,11 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
     $scope.ExportEntries = function(){
         try{
 
+            // Clear the copyText
+            // todo(bwills): this is bad need probably need to grab clipboardjs in angular
+            document.getElementById('copyText').innerHTML = ""   
+
+
             $scope.export = "";
             $scope.textHeight = 0;
             $scope.entries = $filter('orderBy')($scope.entries, $scope.sort);
