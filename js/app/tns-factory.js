@@ -33,7 +33,7 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 	            });
 	            return entryArray;
 	        } catch (e) {
-	            throw "Unable to set raw text:" + e.message;
+	            throw new Error("Unable to set raw text:" + e.message);
 	        }
 	    },
 
@@ -61,7 +61,7 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 	            });
 	            return keys.sort();
 	        } catch (e) {
-	            throw "Unable to get keys from entries:" + e.message;
+	            throw new Error("Unable to get keys from entries:" + e.message);
 	        }
 	    },
 
@@ -90,7 +90,7 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 
 	            return false;
 	        } catch (e) {
-	            throw "Unable to isolate ora file: " + e.message;
+	            throw new Error("Unable to isolate ora file: " + e.message);
 	        }
 	    },
 
@@ -115,7 +115,7 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 	                error.alias = alias || 'Unknown';
 	            });
 	        } catch (e) {
-	            throw "Unable to associate errors to alias: " + e.message;
+	            throw new Error("Unable to associate errors to alias: " + e.message);
 	        }
 	    },
 
@@ -124,6 +124,7 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 	     * Convert array values into joined strings 
 	     * Set the isVisible value to true
 	     * Set the entry index value for moving position 
+	     * Detect if we have an ifile entry
 	     *
 	     * @param entries {Object} - the array of tns entries to examine
 	     */
@@ -139,10 +140,13 @@ angular.module('app-tns').factory('tnsHelper', [function() {
 	                        entry[key] = entry[key].join(', ');
 	                    }
 
+	                    if(key == 'ifile'){
+	                    	entry.alias = 'IFILE';
+	                    }
 	                }
 	            });
 	        } catch (e) {
-	            throw "Unable to format entries for display: " + e.message;
+	            throw new Error("Unable to format entries for display: " + e.message);
 	        }
 	    }
 

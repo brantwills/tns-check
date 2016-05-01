@@ -14,11 +14,8 @@ angular.module('app-tns').directive('dropArea', function() {
              * @param e {object} - the event we are binding against
              */
             elem.bind('dragover', function(e) {
-
                 e.stopPropagation();
                 e.preventDefault();
-
-                // todo(bwills): remove the originalEvent when jQuery goes out
                 e.dataTransfer.dropEffect = 'copy';
             });
 
@@ -33,7 +30,6 @@ angular.module('app-tns').directive('dropArea', function() {
                 e.stopPropagation();
                 e.preventDefault();
 
-                // todo(bwills): remove the originalEvent when jQuery goes out
                 scope.onParse({
                     files: e.dataTransfer.files
                 });
