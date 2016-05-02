@@ -206,7 +206,7 @@
                     <div ng-repeat="entry in entries | filter: search | orderBy: index" ng-class="entry.isVisible ? 'entryRow' : 'entryRow entryHidden'">
                         <div class="row">
                             <div class="col-xs-6">
-                                <strong>{{entry.index}} {{entry.alias}} </strong>
+                                <strong>{{entry.alias}} </strong>
                                 <div class="text-muted attributes" ng-click="showAttributes = !showAttributes">
                                     <small>
                                         <span class="glyphicon glyphicon-list"></span>
