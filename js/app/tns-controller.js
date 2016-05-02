@@ -112,10 +112,9 @@ angular.module('app-tns').controller('tnsController', ['$scope', '$filter', 'tns
             return;
         }
 
-        var temp = $scope.entries[destination];
-        $scope.entries[destination] = $scope.entries[origin];
-        $scope.entries[origin] = temp;
-        $scope.ExportEntries();
+        $scope.entries[origin].index = destination;
+        $scope.entries[destination].index = origin;
+        $scope.entries = $filter('orderBy')($scope.entries, 'index');
     };
 
 
