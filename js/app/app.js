@@ -2,6 +2,12 @@
 angular.module('app-tns',[]);
 
 
+// remove the debug stuff in angular
+angular.module('app-tns').config(['$compileProvider', function ($compileProvider) {
+  $compileProvider.debugInfoEnabled(false);
+}]);
+
+
 // declare tns namespace
 window.tns = window.tns || {}
 
