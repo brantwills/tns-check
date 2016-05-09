@@ -9,7 +9,7 @@ No data is sent to a server, a large goal of this application is to keep the tex
 
 # How does it work?
 
-The heart of this application is an Antlr4 tnsnames.ora parser.
+The heart of this application is an [Antlr4](http://www.antlr.org) tnsnames.ora parser.
 
 Thankfully Antlr4 has a JavaScript 'grammar' export ability which we leverage to parse the tnsnames.ora structure into the browsers memory.
 
