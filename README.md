@@ -9,13 +9,15 @@ No data is sent to a server, a large goal of this application is to keep the tex
 
 # How does it work?
 
-The heart of this application is an Antlr4 tnsnames.ora parser. 
+The heart of this application is an Antlr4 tnsnames.ora parser.
+
 Thankfully Antlr4 has a JavaScript 'grammar' export ability which we leverage to parse the tnsnames.ora structure into the browsers memory.
 
 Once in memory, we can perform several cleanup actions like alerting on possible syntax issues in the tnsnames.ora text or manipulating the order of tnsnames.ora entries. 
 
 A special thanks goes out to all those who have developed the 
 [tnsname.g4](https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4)
+
 This grammar is based on the [Oracle 11g Release 2](https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4) Network Reference manual  
 
 
