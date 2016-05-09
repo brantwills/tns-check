@@ -4,7 +4,7 @@ Oracle tnsnames.ora exploration web tool
 
 No data is sent to a server, a large goal of this application is to keep the text local.
 
-Demo: http://brantwills.github.io/tns-check/
+**Demo: http://brantwills.github.io/tns-check/**
 
 
 # What should I do and why use this?
