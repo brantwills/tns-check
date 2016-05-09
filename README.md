@@ -22,8 +22,8 @@ Thankfully Antlr4 has a JavaScript 'grammar' export ability which we leverage to
 Once in memory, we can perform several cleanup actions like alerting on possible syntax issues in the tnsnames.ora text or manipulating the order of tnsnames.ora entries. 
 
 A special thanks goes out to all those who have developed the 
-(tnsname.g4)[https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4]
-This grammar is based on the (Oracle 11g Release 2)[https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4] Network Reference manual  
+[tnsname.g4](https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4)
+This grammar is based on the [Oracle 11g Release 2](https://github.com/drforr/perl6-ANTLR4/blob/master/corpus/tnsnames.g4) Network Reference manual  
 
 
 # What is a tnsnames.ora file?
