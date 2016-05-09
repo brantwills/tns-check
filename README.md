@@ -7,13 +7,6 @@ No data is sent to a server, a large goal of this application is to keep the tex
 **Demo: http://brantwills.github.io/tns-check/**
 
 
-# What should I do and why use this?
-
-This application explores tnsnames.ora files which can often become unmanageable or disconnected.
-Once you have located your tnsname.ora you can drop the file in the area above.
-The file is then parsed and exposed in the browser checking syntax and allowing for search and filtering.
-
-
 # How does it work?
 
 The heart of this application is an Antlr4 tnsnames.ora parser. 
